@@ -1,5 +1,5 @@
 {
-  "name": "@tri/render",
+  "name": "@tri/widget",
   "version": "0.0.0",
   "description": "",
   "main": "src/index.ts",
