@@ -1,18 +1,18 @@
 import { MessageBus, noParentContextSymbol } from '@tri/hierarchy-message-bus';
 
-const contextSymbol = Symbol("context");
+const contextSymbol = Symbol('context');
 
 type TriInnerContext<TriContext> = {
   parent: TriContext | typeof noParentContextSymbol;
   messageBus: MessageBus<TriContext>;
 };
 
-type TriContext<Other> = Other & {
+export type TriContext<Other> = Other & {
   [contextSymbol]: TriInnerContext<TriContext<Other>>;
 };
 
-function getTriInnerContext<T>(
-  context: TriContext<T>
+export function getTriInnerContext<T>(
+  context: TriContext<T>,
 ): TriInnerContext<TriContext<T>> {
   return context[contextSymbol];
 }
@@ -30,7 +30,7 @@ export function createTriContext<Other>(obj: Other): TriContext<Other> {
 }
 
 export function createChildrenTriContext<Other>(
-  context: TriContext<Other>
+  context: TriContext<Other>,
 ): TriContext<Other> {
   const innerContext = getTriInnerContext(context);
   return {
@@ -43,7 +43,7 @@ export function createChildrenTriContext<Other>(
 }
 
 export function getMessageBus<Context>(
-  context: TriContext<Context>
+  context: TriContext<Context>,
 ): MessageBus<TriContext<Context>> {
   return getTriInnerContext(context).messageBus;
 }

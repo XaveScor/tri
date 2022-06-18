@@ -1,1 +1,7 @@
-export { createTriContext, createChildrenTriContext, getMessageBus } from "./context";
+export {
+  createTriContext,
+  createChildrenTriContext,
+  getMessageBus,
+  TriContext,
+  getTriInnerContext,
+} from './context';

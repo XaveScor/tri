@@ -1,0 +1,13 @@
+{
+  "name": "@tri/slot",
+  "version": "0.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "jest --config ../../jest.config.js",
+    "build": "rollup -c rollup.config.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "module"
+}
