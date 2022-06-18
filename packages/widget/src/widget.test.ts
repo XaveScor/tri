@@ -1,6 +1,6 @@
 import { declareWidget, createController, viewArgs } from './index';
 import { createTriContext } from '@tri/context';
-import { AbstractRender } from '@tri/abstract/src/abstract-render';
+import { AbstractRender } from '@tri/abstract';
 
 describe('widget', () => {
   it('simple render', async () => {

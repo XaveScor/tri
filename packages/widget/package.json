@@ -14,7 +14,6 @@
     "@tri/abstract": "file:../abstract",
     "@tri/context": "file:../context",
     "@tri/hierarchy-message-bus": "file:../hierarchy-message-bus",
-    "@tri/promise": "file:../promisable",
-    "@tri/widget": "file:../widget"
+    "@tri/promise": "file:../promisable"
   }
 }
