@@ -22,7 +22,7 @@ describe('widget', () => {
 
     const widget = widgetDeclaration.create(context, undefined);
 
-    const writer = new (class extends AbstractWriter {
+    const writer = new (class extends AbstractWriter<void> {
       controller() {}
 
       write() {}
@@ -32,6 +32,44 @@ describe('widget', () => {
       context,
       renderedMessageFactory,
       () => done(),
+    );
+
+    widget.render(writer);
+  });
+
+  it('test render', (done) => {
+    const renderResult = 'test view arg';
+
+    const widgetDeclaration = declareWidget({
+      controller: createController(() => {
+        return {
+          [viewArgs]: renderResult,
+        };
+      }),
+      view: ({ args }) => args,
+    });
+
+    const context = createTriContext({});
+
+    const widget = widgetDeclaration.create(context, undefined);
+
+    let res = '';
+
+    const writer = new (class extends AbstractWriter<string> {
+      controller() {}
+
+      write(chunk) {
+        res += chunk;
+      }
+    })();
+
+    getTriInnerContext(context).messageBus.subscribe(
+      context,
+      renderedMessageFactory,
+      () => {
+        expect(res).toBe(renderResult);
+        return done();
+      },
     );
 
     widget.render(writer);
