@@ -1,9 +1,7 @@
-export class AbstractRender {
-  constructor() {
-    throw new Error('You cannot create AbstractRender directly');
-  }
+export class AbstractRender<ViewResult> {
+  constructor() {}
 
-  render() {
+  render(viewResult: ViewResult): string {
     throw new Error('You should redeclare render method');
   }
 }

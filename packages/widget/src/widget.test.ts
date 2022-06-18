@@ -1,43 +1,9 @@
-import {
-  declareWidget,
-  createController,
-  viewArgs,
-  renderedMessageFactory,
-} from './index';
-import { createTriContext, getTriInnerContext } from '@tri/context';
-import { AbstractWriter } from '@tri/abstract';
+import { declareWidget, createController, viewArgs } from './index';
+import { createTriContext } from '@tri/context';
+import { AbstractRender } from '@tri/abstract/src/abstract-render';
 
 describe('widget', () => {
-  it('rendered message sent', (done) => {
-    const widgetDeclaration = declareWidget({
-      controller: createController(() => {
-        return {
-          [viewArgs]: 'test view arg',
-        };
-      }),
-      view: ({ args }) => args,
-    });
-
-    const context = createTriContext({});
-
-    const widget = widgetDeclaration.create(context, undefined);
-
-    const writer = new (class extends AbstractWriter<void> {
-      controller() {}
-
-      write() {}
-    })();
-
-    getTriInnerContext(context).messageBus.subscribe(
-      context,
-      renderedMessageFactory,
-      () => done(),
-    );
-
-    widget.render(writer);
-  });
-
-  it('test render', (done) => {
+  it('simple render', async () => {
     const renderResult = 'test view arg';
 
     const widgetDeclaration = declareWidget({
@@ -53,25 +19,12 @@ describe('widget', () => {
 
     const widget = widgetDeclaration.create(context, undefined);
 
-    let res = '';
-
-    const writer = new (class extends AbstractWriter<string> {
-      controller() {}
-
-      write(chunk) {
-        res += chunk;
+    const writer = new (class extends AbstractRender<string> {
+      render(str) {
+        return str;
       }
     })();
 
-    getTriInnerContext(context).messageBus.subscribe(
-      context,
-      renderedMessageFactory,
-      () => {
-        expect(res).toBe(renderResult);
-        return done();
-      },
-    );
-
-    widget.render(writer);
+    expect(await widget.render(writer)).toBe(renderResult);
   });
 });

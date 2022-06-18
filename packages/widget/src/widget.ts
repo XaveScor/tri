@@ -1,13 +1,12 @@
-import { getTriInnerContext, TriContext } from '@tri/context';
-import { AbstractWriter } from '@tri/abstract';
+import { TriContext } from '@tri/context';
 import { RenderSchema, viewArgs } from './controller';
-import { renderedMessageFactory } from './rendered-message';
 import { TriView } from './view';
+import { AbstractRender } from '@tri/abstract/src/abstract-render';
 
 export class Widget<BaseContext, ViewArgs, ViewResult> {
-  #context: TriContext<BaseContext>;
-  #renderSchema: RenderSchema<ViewArgs>;
-  #view: TriView<ViewArgs, ViewResult>;
+  readonly #context: TriContext<BaseContext>;
+  readonly #renderSchema: RenderSchema<ViewArgs>;
+  readonly #view: TriView<ViewArgs, ViewResult>;
 
   constructor(
     context: TriContext<BaseContext>,
@@ -19,13 +18,9 @@ export class Widget<BaseContext, ViewArgs, ViewResult> {
     this.#view = view;
   }
 
-  async render(writer: AbstractWriter<ViewResult>) {
-    const viewResult = this.#view({ args: await this.#renderSchema[viewArgs] });
-    writer.write(viewResult);
-
-    const triInnerContext = getTriInnerContext(this.#context);
-
-    const renderedMessage = renderedMessageFactory.create(this.#context);
-    triInnerContext.messageBus.emitToTop(renderedMessage);
+  async render(render: AbstractRender<ViewResult>): Promise<string> {
+    const args = await this.#renderSchema[viewArgs];
+    const viewResult = this.#view({ args });
+    return render.render(viewResult);
   }
 }
