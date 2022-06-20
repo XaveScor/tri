@@ -1,4 +1,4 @@
-import { declareWidget, createController, viewArgs } from './index';
+import { declareWidget, createTriController, viewArgs } from './index';
 import { createTriContext } from '@tri/context';
 import { AbstractRender } from '@tri/abstract';
 
@@ -6,13 +6,14 @@ describe('widget', () => {
   it('simple render', async () => {
     const renderResult = 'test view arg';
 
+    const controller = createTriController(() => {
+      return {
+        [viewArgs]: { x: renderResult },
+      };
+    });
     const widgetDeclaration = declareWidget({
-      controller: createController(() => {
-        return {
-          [viewArgs]: renderResult,
-        };
-      }),
-      view: ({ args }) => args,
+      controller,
+      view: ({ args }) => args.x,
     });
 
     const context = createTriContext({});

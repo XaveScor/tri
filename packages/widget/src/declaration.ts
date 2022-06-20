@@ -28,6 +28,9 @@ class WidgetDeclaration<BaseContext, WidgetArgs, ViewArgs, ViewResult> {
   }
 }
 
+export type _WidgetDeclaration<BaseContext, WidgetArgs, ViewArgs, ViewResult> =
+  WidgetDeclaration<BaseContext, WidgetArgs, ViewArgs, ViewResult>;
+
 export function declareWidget<BaseContext, WidgetArgs, ViewArgs, ViewResult>(
   schema: WidgetSchema<BaseContext, WidgetArgs, ViewArgs, ViewResult>,
 ): WidgetDeclaration<BaseContext, WidgetArgs, ViewArgs, ViewResult> {

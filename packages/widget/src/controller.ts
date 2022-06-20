@@ -13,7 +13,7 @@ export type TriController<BaseContext, WidgetArgs, ViewArgs> = (
   widgetArgs: TriWidgetArgs<WidgetArgs>,
 ) => RenderSchema<ViewArgs>;
 
-export function createController<BaseContext, WidgetArgs, ViewArgs>(
+export function createTriController<BaseContext, WidgetArgs, ViewArgs>(
   controller: TriController<BaseContext, WidgetArgs, ViewArgs>,
 ) {
   return controller;

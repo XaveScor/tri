@@ -1,7 +1,7 @@
-export type TreeViewArgs<ViewArgs> = {
+export type TriViewArgs<ViewArgs> = {
   args: ViewArgs;
 };
 
 export type TriView<ViewArgs, ViewResult> = (
-  args: TreeViewArgs<ViewArgs>,
+  args: TriViewArgs<ViewArgs>,
 ) => ViewResult;

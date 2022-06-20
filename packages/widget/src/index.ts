@@ -1,2 +1,6 @@
-export { declareWidget } from './declaration';
-export { createController, viewArgs } from './controller';
+export {
+  declareWidget,
+  _WidgetDeclaration as WidgetDeclaration,
+} from './declaration';
+export { createTriController, viewArgs } from './controller';
+export { TriViewArgs } from './view';

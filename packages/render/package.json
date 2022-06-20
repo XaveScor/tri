@@ -1,0 +1,19 @@
+{
+  "name": "@tri/render",
+  "version": "0.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "jest --config ../../jest.config.js",
+    "build": "rollup -c rollup.config.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@tri/abstract": "file:../abstract",
+    "@tri/context": "file:../context",
+    "@tri/slot": "file:../slot",
+    "@tri/widget": "file:../widget"
+  }
+}
