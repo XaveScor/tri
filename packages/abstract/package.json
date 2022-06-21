@@ -11,6 +11,6 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "@tri/slot": "file:../slot"
+    "@tri/slot": "^0.0.1"
   }
 }

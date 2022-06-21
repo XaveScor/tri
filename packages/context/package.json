@@ -11,6 +11,6 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "@tri/hierarchy-message-bus": "file:../hierarchy-message-bus"
+    "@tri/hierarchy-message-bus": "^0.0.1"
   }
 }

@@ -11,9 +11,9 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "@tri/abstract": "file:../abstract",
-    "@tri/context": "file:../context",
-    "@tri/hierarchy-message-bus": "file:../hierarchy-message-bus",
-    "@tri/promise": "file:../promisable"
+    "@tri/abstract": "^0.0.1",
+    "@tri/context": "^0.0.1",
+    "@tri/hierarchy-message-bus": "^0.0.1",
+    "@tri/promise": "^0.0.1"
   }
 }

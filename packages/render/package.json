@@ -11,9 +11,9 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "@tri/abstract": "file:../abstract",
-    "@tri/context": "file:../context",
-    "@tri/slot": "file:../slot",
-    "@tri/widget": "file:../widget"
+    "@tri/abstract": "^0.0.1",
+    "@tri/context": "^0.0.1",
+    "@tri/slot": "^0.0.1",
+    "@tri/widget": "^0.0.1"
   }
 }
