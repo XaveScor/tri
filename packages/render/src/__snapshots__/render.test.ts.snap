@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render base 1`] = `"from args"`;
+
+exports[`render slot 1`] = `"from args split hello child"`;
