@@ -1,5 +1,5 @@
 import { TriContext } from '@tri/context';
-import { RenderSchema, viewArgs } from './controller';
+import { RenderSchema, slotArgs, viewArgs } from './controller';
 import { TriView } from './view';
 import { AbstractRender } from '@tri/abstract/src/abstract-render';
 
@@ -22,5 +22,16 @@ export class Widget<BaseContext, ViewArgs, ViewResult> {
     const args = await this.#renderSchema[viewArgs];
     const viewResult = this.#view({ args });
     return render.render(viewResult);
+  }
+
+  getSlotRenderSchema(name: string) {
+    if (
+      !(slotArgs in this.#renderSchema) ||
+      !(name in this.#renderSchema[slotArgs])
+    ) {
+      throw Error('invalid Slot name in view ' + name);
+    }
+
+    return this.#renderSchema[slotArgs][name];
   }
 }

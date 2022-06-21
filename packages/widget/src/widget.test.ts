@@ -1,6 +1,7 @@
 import { declareWidget, createTriController, viewArgs } from './index';
 import { createTriContext } from '@tri/context';
 import { AbstractRender } from '@tri/abstract';
+import { createTriView } from './view';
 
 describe('widget', () => {
   it('simple render', async () => {
@@ -13,7 +14,7 @@ describe('widget', () => {
     });
     const widgetDeclaration = declareWidget({
       controller,
-      view: ({ args }) => args.x,
+      view: createTriView(({ args }) => args.x),
     });
 
     const context = createTriContext({});

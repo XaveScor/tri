@@ -1,11 +1,14 @@
 import { TriContext } from '@tri/context';
 import { TriWidgetArgs } from './widgetArgs';
 import { Promisable } from '@tri/promise';
+import { Widget } from './widget';
 
 export const viewArgs = Symbol('controller view args');
+export const slotArgs = Symbol('controller slots args');
 
 export type RenderSchema<ViewArgs> = {
   [viewArgs]: Promisable<ViewArgs>;
+  [slotArgs]?: { [name: string]: Widget<any, any, any> };
 };
 
 export type TriController<BaseContext, WidgetArgs, ViewArgs> = (
