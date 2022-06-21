@@ -24,6 +24,10 @@
     "packages/*"
   ],
   "wallaby": {
-    "autoDetect": true
+    "autoDetect": true,
+    "trace": true
+  },
+  "scripts": {
+    "test": "jest"
   }
 }

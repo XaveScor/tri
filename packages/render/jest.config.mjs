@@ -1,6 +1,7 @@
 import deepmerge from 'deepmerge';
-import baseConfig from '../../jest.config.mjs';
+import commonConfig from '../../jest.config.common.mjs';
 
-export default deepmerge(baseConfig, {
+export default deepmerge(commonConfig, {
+  displayName: '@tri/render',
   rootDir: 'src',
 });

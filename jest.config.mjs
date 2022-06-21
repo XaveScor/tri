@@ -1,10 +1,3 @@
 export default {
-  preset: 'ts-jest',
-  testEnvironment: 'node',
-  transform: {
-    '^.+\\.ts?$': 'ts-jest',
-  },
-  transformIgnorePatterns: [],
-  passWithNoTests: true,
-  verbose: true
+  projects: ['<rootDir>/packages/*/jest.config.mjs'],
 };
