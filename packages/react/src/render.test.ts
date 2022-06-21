@@ -1,6 +1,7 @@
-import { render } from './index';
+import { render } from '@tri/render';
 import { ChildWidget } from './fixtures/ChildWidget';
-import { AbstractRender, AbstractWriter } from '@tri/abstract';
+import { AbstractWriter } from '@tri/abstract';
+import { ReactRender } from './render';
 import { ParentWidget } from './fixtures/ParentWidget';
 
 describe('render', () => {
@@ -15,11 +16,7 @@ describe('render', () => {
           res += chunk;
         }
       })(),
-      render: new (class extends AbstractRender<string> {
-        render(chunk: string) {
-          return chunk;
-        }
-      })(),
+      render: new ReactRender(),
     });
 
     expect(res).toMatchSnapshot();
@@ -36,11 +33,7 @@ describe('render', () => {
           res += chunk;
         }
       })(),
-      render: new (class extends AbstractRender<string> {
-        render(chunk: string) {
-          return chunk;
-        }
-      })(),
+      render: new ReactRender(),
     });
 
     expect(res).toMatchSnapshot();
