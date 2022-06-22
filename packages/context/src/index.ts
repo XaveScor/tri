@@ -2,6 +2,6 @@ export {
   createTriContext,
   createChildrenTriContext,
   getMessageBus,
-  TriContext,
+  type TriContext,
   getTriInnerContext,
 } from './context';

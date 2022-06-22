@@ -1,1 +1,1 @@
-export { Promisable } from './promisable';
+export { type Promisable } from './promisable';

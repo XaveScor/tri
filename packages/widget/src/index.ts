@@ -1,7 +1,7 @@
 export {
   declareWidget,
-  _WidgetDeclaration as WidgetDeclaration,
+  type _WidgetDeclaration as WidgetDeclaration,
 } from './declaration';
 export { createTriController, viewArgs, slotArgs } from './controller';
-export { TriViewArgs, createTriView } from './view';
-export { TriWidgetArgs } from './widgetArgs';
+export { type TriViewArgs, createTriView } from './view';
+export { type TriWidgetArgs } from './widgetArgs';
