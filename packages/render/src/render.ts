@@ -1,8 +1,8 @@
-import { WidgetDeclaration } from '@tri/widget';
-import { AbstractRender, AbstractWriter } from '@tri/abstract';
-import { createTriContext } from '@tri/context';
-import { splitToChunks } from '@tri/slot';
-import { Widget } from '@tri/widget/src/widget';
+import { WidgetDeclaration } from '@drzewo/widget';
+import { AbstractRender, AbstractWriter } from '@drzewo/abstract';
+import { createTriContext } from '@drzewo/context';
+import { splitToChunks } from '@drzewo/slot';
+import { Widget } from '@drzewo/widget/src/widget';
 
 export type RenderArgs<BaseContext, WidgetArgs, ViewArgs, ViewResult> = {
   widgetDeclaration: WidgetDeclaration<

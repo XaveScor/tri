@@ -1,7 +1,7 @@
-import { TriContext } from '@tri/context';
+import { TriContext } from '@drzewo/context';
 import { RenderSchema, slotArgs, viewArgs } from './controller';
 import { TriView } from './view';
-import { AbstractRender } from '@tri/abstract/src/abstract-render';
+import { AbstractRender } from '@drzewo/abstract/src/abstract-render';
 
 export class Widget<BaseContext, ViewArgs, ViewResult> {
   readonly #context: TriContext<BaseContext>;

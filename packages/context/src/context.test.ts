@@ -2,18 +2,18 @@ import {
   createChildrenTriContext,
   createTriContext,
   getMessageBus,
-} from "./index";
-import { MessageFactory } from "@tri/hierarchy-message-bus";
+} from './index';
+import { MessageFactory } from '@drzewo/hierarchy-message-bus';
 
-describe("context base operations", () => {
-  it("creation", () => {
+describe('context base operations', () => {
+  it('creation', () => {
     const otherContext = { a: 1, b: 3 };
     const triContext = createTriContext(otherContext);
 
     expect(triContext).toMatchObject(otherContext);
   });
 
-  it("children context", () => {
+  it('children context', () => {
     const otherContext = { a: 1, b: 3 };
     const triContext = createTriContext(otherContext);
 
@@ -21,8 +21,8 @@ describe("context base operations", () => {
   });
 });
 
-describe("message-bus", () => {
-  it("fire message", () => {
+describe('message-bus', () => {
+  it('fire message', () => {
     const triContext = createTriContext({});
     const messageBus = getMessageBus(triContext);
 
@@ -30,7 +30,7 @@ describe("message-bus", () => {
     const subscriber = jest.fn();
     messageBus.subscribe(triContext, messageFactory, subscriber);
 
-    const data = "asd";
+    const data = 'asd';
     const message = messageFactory.create(triContext, data);
     messageBus.emit(message);
 
@@ -38,7 +38,7 @@ describe("message-bus", () => {
     expect(subscriber).toBeCalledWith(data, triContext);
   });
 
-  it("fire message to top", () => {
+  it('fire message to top', () => {
     const triContext = createTriContext({});
     const triChindlenContext = createChildrenTriContext(triContext);
 
@@ -49,7 +49,7 @@ describe("message-bus", () => {
     const subscriber = jest.fn();
     messageBus.subscribe(triContext, messageFactory, subscriber);
 
-    const data = "asd";
+    const data = 'asd';
     const message = messageFactory.create(triChindlenContext, data);
     childrenMessageBus.emitToTop(message);
 
@@ -57,7 +57,7 @@ describe("message-bus", () => {
     expect(subscriber).toBeCalledWith(data, triChindlenContext);
   });
 
-  it("fire message on current level", () => {
+  it('fire message on current level', () => {
     const triContext = createTriContext({});
     const childrenTriContext = createChildrenTriContext(triContext);
 
@@ -71,10 +71,10 @@ describe("message-bus", () => {
     childrenMessageBus.subscribe(
       childrenTriContext,
       messageFactory,
-      childrenSubscriber
+      childrenSubscriber,
     );
 
-    const data = "asd";
+    const data = 'asd';
     const message = messageFactory.create(childrenTriContext, data);
     childrenMessageBus.emit(message);
 

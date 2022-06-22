@@ -1,5 +1,5 @@
 {
-  "name": "@tri/react",
+  "name": "@drzewo/react",
   "version": "0.0.1",
   "description": "",
   "main": "src/index.ts",
@@ -11,9 +11,9 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "@tri/abstract": "^0.0.1",
-    "@tri/render": "^0.0.1",
-    "@tri/slot": "^0.0.1",
+    "@drzewo/abstract": "^0.0.1",
+    "@drzewo/render": "^0.0.1",
+    "@drzewo/slot": "^0.0.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },

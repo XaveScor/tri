@@ -1,5 +1,5 @@
 import { Widget } from './widget';
-import { createChildrenTriContext, TriContext } from '@tri/context';
+import { createChildrenTriContext, TriContext } from '@drzewo/context';
 import { TriController } from './controller';
 import { TriView } from './view';
 

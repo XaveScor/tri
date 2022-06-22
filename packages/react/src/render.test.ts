@@ -1,6 +1,6 @@
-import { render } from '@tri/render';
+import { render } from '@drzewo/render';
 import { ChildWidget } from './fixtures/ChildWidget';
-import { AbstractWriter } from '@tri/abstract';
+import { AbstractWriter } from '@drzewo/abstract';
 import { ReactRender } from './render';
 import { ParentWidget } from './fixtures/ParentWidget';
 

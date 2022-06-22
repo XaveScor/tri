@@ -1,4 +1,4 @@
-import { createTriController, viewArgs, slotArgs } from '@tri/widget';
+import { createTriController, viewArgs, slotArgs } from '@drzewo/widget';
 import { WidgetArgs } from './types';
 import { ChildWidget } from '../ChildWidget';
 

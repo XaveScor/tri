@@ -1,4 +1,7 @@
-import { MessageBus, noParentContextSymbol } from '@tri/hierarchy-message-bus';
+import {
+  MessageBus,
+  noParentContextSymbol,
+} from '@drzewo/hierarchy-message-bus';
 
 const contextSymbol = Symbol('context');
 

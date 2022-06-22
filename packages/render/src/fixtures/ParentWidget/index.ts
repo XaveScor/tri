@@ -1,4 +1,4 @@
-import { declareWidget } from '@tri/widget';
+import { declareWidget } from '@drzewo/widget';
 import { controller } from './controller';
 import { view } from './view';
 

@@ -1,4 +1,4 @@
-import { createTriController, viewArgs } from '@tri/widget';
+import { createTriController, viewArgs } from '@drzewo/widget';
 import { WidgetArgs } from './types';
 
 export const controller = createTriController((ctx, args: WidgetArgs) => {

@@ -1,5 +1,5 @@
 {
-  "name": "@tri/render",
+  "name": "@drzewo/render",
   "version": "0.0.1",
   "description": "",
   "main": "src/index.ts",
@@ -11,9 +11,9 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "@tri/abstract": "^0.0.1",
-    "@tri/context": "^0.0.1",
-    "@tri/slot": "^0.0.1",
-    "@tri/widget": "^0.0.1"
+    "@drzewo/abstract": "^0.0.1",
+    "@drzewo/context": "^0.0.1",
+    "@drzewo/slot": "^0.0.1",
+    "@drzewo/widget": "^0.0.1"
   }
 }

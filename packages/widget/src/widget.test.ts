@@ -1,6 +1,6 @@
 import { declareWidget, createTriController, viewArgs } from './index';
-import { createTriContext } from '@tri/context';
-import { AbstractRender } from '@tri/abstract';
+import { createTriContext } from '@drzewo/context';
+import { AbstractRender } from '@drzewo/abstract';
 import { createTriView } from './view';
 
 describe('widget', () => {

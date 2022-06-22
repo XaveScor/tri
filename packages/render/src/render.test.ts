@@ -1,6 +1,6 @@
 import { render } from './index';
 import { ChildWidget } from './fixtures/ChildWidget';
-import { AbstractRender, AbstractWriter } from '@tri/abstract';
+import { AbstractRender, AbstractWriter } from '@drzewo/abstract';
 import { ParentWidget } from './fixtures/ParentWidget';
 
 describe('render', () => {

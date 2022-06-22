@@ -1,4 +1,4 @@
-import { createSlotSplitString } from '@tri/slot';
+import { createSlotSplitString } from '@drzewo/slot';
 import React from 'react';
 
 export const Slot = ({ name }: { name: string }) => {
