@@ -1,7 +1,7 @@
 import {
   MessageBus,
   noParentContextSymbol,
-} from '@drzewo/hierarchy-message-bus';
+} from '@widgeteria/hierarchy-message-bus';
 
 const contextSymbol = Symbol('context');
 

@@ -4,7 +4,7 @@ import { createDrzewoMiddleware } from './index';
 import { ChildWidget } from './fixtures/ChildWidget';
 
 describe('koa', () => {
-  it.only('base middleware', async () => {
+  it('base middleware', async () => {
     const app = new Koa();
 
     app.use(createDrzewoMiddleware(ChildWidget, { a: '123' }));

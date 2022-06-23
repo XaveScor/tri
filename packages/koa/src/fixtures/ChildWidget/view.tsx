@@ -1,4 +1,4 @@
-import { createTriView } from '@drzewo/widget';
+import { createTriView } from '@widgeteria/widget';
 import React from 'react';
 import { ViewArgs } from './types';
 

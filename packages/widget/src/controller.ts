@@ -1,6 +1,6 @@
-import { TriContext } from '@drzewo/context';
+import { TriContext } from '@widgeteria/context';
 import { TriWidgetArgs } from './widgetArgs';
-import { Promisable } from '@drzewo/promise';
+import { Promisable } from '@widgeteria/promise';
 import { Widget } from './widget';
 
 export const viewArgs = Symbol('controller view args');

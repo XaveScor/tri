@@ -1,4 +1,4 @@
-import { AbstractRender } from '@drzewo/abstract';
+import { AbstractRender } from '@widgeteria/abstract';
 import * as React from 'react';
 import * as ReactDomServer from 'react-dom/server';
 

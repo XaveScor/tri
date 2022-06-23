@@ -3,7 +3,7 @@ import {
   createTriContext,
   getMessageBus,
 } from './index';
-import { MessageFactory } from '@drzewo/hierarchy-message-bus';
+import { MessageFactory } from '@widgeteria/hierarchy-message-bus';
 
 describe('context base operations', () => {
   it('creation', () => {

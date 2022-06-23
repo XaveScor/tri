@@ -1,9 +1,9 @@
 import Koa from 'koa';
-import { createTriContext } from '@drzewo/context';
-import { render } from '@drzewo/render';
+import { createTriContext } from '@widgeteria/context';
+import { render } from '@widgeteria/render';
 import { createWriter } from './createWriter';
-import { ReactRender } from '@drzewo/react';
-import { WidgetDeclaration } from '@drzewo/widget';
+import { ReactRender } from '@widgeteria/react';
+import { WidgetDeclaration } from '@widgeteria/widget';
 import React from 'react';
 
 export function createDrzewoMiddleware<WidgetArgs, ViewArgs>(

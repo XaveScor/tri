@@ -1,6 +1,6 @@
-import { createTriController, viewArgs } from '@drzewo/widget';
+import { createTriController, viewArgs } from '@widgeteria/widget';
 import { WidgetArgs } from './types';
-import { TriContext } from '@drzewo/context';
+import { TriContext } from '@widgeteria/context';
 import Koa from 'koa';
 
 export const controller = createTriController(

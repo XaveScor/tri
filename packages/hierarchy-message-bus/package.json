@@ -1,5 +1,5 @@
 {
-  "name": "@drzewo/hierarchy-message-bus",
+  "name": "@widgeteria/hierarchy-message-bus",
   "version": "0.0.1",
   "description": "",
   "main": "src/index.ts",

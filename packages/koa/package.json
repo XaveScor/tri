@@ -1,5 +1,5 @@
 {
-  "name": "@drzewo/koa",
+  "name": "@widgeteria/koa",
   "version": "0.0.0",
   "description": "",
   "main": "src/index.ts",
@@ -11,9 +11,9 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "@drzewo/context": "^0.0.1",
-    "@drzewo/react": "^0.0.1",
-    "@drzewo/render": "^0.0.1",
+    "@widgeteria/context": "^0.0.1",
+    "@widgeteria/react": "^0.0.1",
+    "@widgeteria/render": "^0.0.1",
     "koa": "^2.13.4",
     "react": "^18.2.0"
   },

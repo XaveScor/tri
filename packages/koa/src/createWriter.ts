@@ -1,5 +1,5 @@
 import Koa from 'koa';
-import { AbstractWriter } from '@drzewo/abstract';
+import { AbstractWriter } from '@widgeteria/abstract';
 import { Readable } from 'stream';
 
 export function createWriter(context: Koa.Context) {

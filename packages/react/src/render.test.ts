@@ -1,6 +1,6 @@
-import { render } from '@drzewo/render';
+import { render } from '@widgeteria/render';
 import { ChildWidget } from './fixtures/ChildWidget';
-import { AbstractWriter } from '@drzewo/abstract';
+import { AbstractWriter } from '@widgeteria/abstract';
 import { ReactRender } from './render';
 import { ParentWidget } from './fixtures/ParentWidget';
 

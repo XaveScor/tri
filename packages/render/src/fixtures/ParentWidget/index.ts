@@ -1,4 +1,4 @@
-import { declareWidget } from '@drzewo/widget';
+import { declareWidget } from '@widgeteria/widget';
 import { controller } from './controller';
 import { view } from './view';
 
