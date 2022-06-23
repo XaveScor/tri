@@ -6,8 +6,12 @@ import {
   WidgeteriaAbstractRender,
   WidgeteriaAbstractWriter,
 } from '@widgeteria/abstract';
-import { createWidgeteriaContext } from '@widgeteria/context';
+import {
+  getMessageBus,
+  WidgeteriaContext,
+} from '@widgeteria/context';
 import { splitToChunks } from '@widgeteria/slot';
+import { renderCompletedFactory } from './render-completed';
 
 export type RenderArgs<BaseContext, WidgetArgs, ViewArgs, ViewResult> = {
   widgetDeclaration: WidgeteriaWidgetDeclaration<
@@ -19,7 +23,7 @@ export type RenderArgs<BaseContext, WidgetArgs, ViewArgs, ViewResult> = {
   args: WidgetArgs;
   writer: WidgeteriaAbstractWriter;
   render: WidgeteriaAbstractRender<ViewResult>;
-  context: BaseContext;
+  context: WidgeteriaContext<BaseContext>;
 };
 
 export async function widgeteriaRender<
@@ -28,8 +32,6 @@ export async function widgeteriaRender<
   ViewArgs,
   ViewResult,
 >(args: RenderArgs<BaseContext, WidgetArgs, ViewArgs, ViewResult>) {
-  const context = createWidgeteriaContext(args.context);
-
   async function _render<_BaseContext, _ViewArgs>(
     widget: WidgeteriaWidget<_BaseContext, _ViewArgs, ViewResult>,
   ) {
@@ -44,6 +46,9 @@ export async function widgeteriaRender<
     }
   }
 
-  const widget = args.widgetDeclaration.create(context, args.args);
+  const widget = args.widgetDeclaration.create(args.context, args.args);
   await _render(widget);
+
+  const renderedMessage = renderCompletedFactory.create(args.context);
+  getMessageBus(args.context).emit(renderedMessage);
 }

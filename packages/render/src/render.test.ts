@@ -5,12 +5,14 @@ import {
   WidgeteriaAbstractWriter,
 } from '@widgeteria/abstract';
 import { ParentWidget } from './fixtures/ParentWidget';
+import { createWidgeteriaContext } from '@widgeteria/context';
 
 describe('render', () => {
   it('base', async () => {
     let res = '';
+    const context = createWidgeteriaContext({});
     await widgeteriaRender({
-      context: {},
+      context,
       widgetDeclaration: ChildWidget,
       args: { a: 'from args' },
       writer: new (class extends WidgeteriaAbstractWriter {
@@ -30,8 +32,9 @@ describe('render', () => {
 
   it('slot', async () => {
     let res = '';
+    const context = createWidgeteriaContext({});
     await widgeteriaRender({
-      context: {},
+      context,
       widgetDeclaration: ParentWidget,
       args: { a: 'from args' },
       writer: new (class extends WidgeteriaAbstractWriter {

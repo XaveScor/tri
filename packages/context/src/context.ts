@@ -10,9 +10,7 @@ type WidgeteriaInnerContext<WidgeteriaContext> = {
   messageBus: MessageBus<WidgeteriaContext>;
 };
 
-export type WidgeteriaContext<Other> = Other & {
-  [contextSymbol]: WidgeteriaInnerContext<WidgeteriaContext<Other>>;
-};
+export type WidgeteriaContext<Other> = Other;
 
 export function getWidgeteriaInnerContext<T>(
   context: WidgeteriaContext<T>,
@@ -20,31 +18,47 @@ export function getWidgeteriaInnerContext<T>(
   return context[contextSymbol];
 }
 
-export function createWidgeteriaContext<Other>(
+export function createWidgeteriaContext<Other extends object>(
   obj: Other,
 ): WidgeteriaContext<Other> {
-  return {
-    ...obj,
-    [contextSymbol]: {
-      messageBus: new MessageBus<WidgeteriaContext<Other>>((c) => {
-        return getWidgeteriaInnerContext(c).parent;
-      }),
-      parent: noParentContextSymbol,
-    },
+  const innerContext = {
+    messageBus: new MessageBus<WidgeteriaContext<Other>>((c) => {
+      return getWidgeteriaInnerContext(c).parent;
+    }),
+    parent: noParentContextSymbol,
   };
+
+  return new Proxy(obj, {
+    get(target: Other, p: string | symbol, receiver: any): any {
+      if (p === contextSymbol) {
+        return innerContext;
+      }
+
+      return Reflect.get(target, p, receiver);
+    },
+  });
 }
 
-export function createChildrenWidgeteriaContext<Other>(
+export function createChildrenWidgeteriaContext<Other extends object>(
   context: WidgeteriaContext<Other>,
 ): WidgeteriaContext<Other> {
-  const innerContext = getWidgeteriaInnerContext(context);
-  return {
-    ...context,
-    [contextSymbol]: {
-      messageBus: innerContext.messageBus,
-      parent: context,
-    },
+  const childrenInnerContext = {
+    messageBus: getMessageBus(context),
+    parent: context,
   };
+  return new Proxy(context, {
+    get(
+      target: WidgeteriaContext<Other>,
+      p: string | symbol,
+      receiver: any,
+    ): any {
+      if (p === contextSymbol) {
+        return childrenInnerContext;
+      }
+
+      return Reflect.get(target, p, receiver);
+    },
+  });
 }
 
 export function getMessageBus<Context>(

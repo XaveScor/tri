@@ -26,7 +26,7 @@ export function createWidgeteriaMiddleware<WidgetArgs, ViewArgs>(
     >({
       context: widgeteriaContext,
       args,
-      writer: createWriter(context),
+      writer: createWriter(widgeteriaContext),
       widgetDeclaration,
       render: new WidgeteriaReactRender(),
     });

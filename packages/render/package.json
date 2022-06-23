@@ -13,6 +13,7 @@
   "dependencies": {
     "@widgeteria/abstract": "^0.0.1",
     "@widgeteria/context": "^0.0.1",
+    "@widgeteria/hierarchy-message-bus": "^0.0.1",
     "@widgeteria/slot": "^0.0.1",
     "@widgeteria/widget": "^0.0.1"
   }

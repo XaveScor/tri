@@ -3,12 +3,13 @@ import { ChildWidget } from './fixtures/ChildWidget';
 import { WidgeteriaAbstractWriter } from '@widgeteria/abstract';
 import { WidgeteriaReactRender } from './render';
 import { ParentWidget } from './fixtures/ParentWidget';
+import { createWidgeteriaContext } from '@widgeteria/context';
 
 describe('render', () => {
   it('base', async () => {
     let res = '';
     await widgeteriaRender({
-      context: {},
+      context: createWidgeteriaContext({}),
       widgetDeclaration: ChildWidget,
       args: { a: 'from args' },
       writer: new (class extends WidgeteriaAbstractWriter {
@@ -25,7 +26,7 @@ describe('render', () => {
   it('slot', async () => {
     let res = '';
     await widgeteriaRender({
-      context: {},
+      context: createWidgeteriaContext({}),
       widgetDeclaration: ParentWidget,
       args: { a: 'from args' },
       writer: new (class extends WidgeteriaAbstractWriter {
