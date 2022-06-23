@@ -1,12 +1,12 @@
-import { createTriView } from '@widgeteria/widget';
+import { createWidgeteriaView } from '@widgeteria/widget';
 import { ViewArgs } from './types';
-import { Slot } from '@widgeteria/react';
+import { WidgeteriaSlot } from '@widgeteria/react';
 import React from 'react';
 
-export const view = createTriView(({ args }: ViewArgs) => (
+export const view = createWidgeteriaView(({ args }: ViewArgs) => (
   <>
     {args.b}
     split
-    <Slot name="slot" />
+    <WidgeteriaSlot name="slot" />
   </>
 ));

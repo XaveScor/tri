@@ -1,2 +1,2 @@
-export { ReactRender } from './render';
-export { Slot } from './slot';
+export { WidgeteriaReactRender } from './render';
+export { WidgeteriaSlot } from './widgeteriaSlot';

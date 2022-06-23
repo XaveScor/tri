@@ -1,7 +1,8 @@
 export {
-  declareWidget,
-  type _WidgetDeclaration as WidgetDeclaration,
+  declareWidgeteriaWidget,
+  type _WidgetDeclaration as WidgeteriaWidgetDeclaration,
 } from './declaration';
-export { createTriController, viewArgs, slotArgs } from './controller';
-export { type TriViewArgs, createTriView } from './view';
-export { type TriWidgetArgs } from './widgetArgs';
+export { createWidgeteriaController, viewArgs, slotArgs } from './controller';
+export { type WidgeteriaViewArgs, createWidgeteriaView } from './view';
+export { type WidgeteriaWidgetArgs } from './widgetArgs';
+export { type _Widget as WidgeteriaWidget } from './widget';

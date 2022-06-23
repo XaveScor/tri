@@ -1,13 +1,13 @@
-export type TriViewArgs<ViewArgs> = {
+export type WidgeteriaViewArgs<ViewArgs> = {
   args: ViewArgs;
 };
 
-export type TriView<ViewArgs, ViewResult> = (
-  args: TriViewArgs<ViewArgs>,
+export type WidgeteriaView<ViewArgs, ViewResult> = (
+  args: WidgeteriaViewArgs<ViewArgs>,
 ) => ViewResult;
 
-export function createTriView<ViewArgs, ViewResult>(
-  view: TriView<ViewArgs, ViewResult>,
-): TriView<ViewArgs, ViewResult> {
+export function createWidgeteriaView<ViewArgs, ViewResult>(
+  view: WidgeteriaView<ViewArgs, ViewResult>,
+): WidgeteriaView<ViewArgs, ViewResult> {
   return view;
 }

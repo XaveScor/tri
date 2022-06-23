@@ -1,3 +1,3 @@
-export type TriWidgetArgs<WidgetArgs> = {
+export type WidgeteriaWidgetArgs<WidgetArgs> = {
   args: WidgetArgs;
 };

@@ -1,24 +1,24 @@
-import { TriContext } from '@widgeteria/context';
+import { WidgeteriaContext } from '@widgeteria/context';
 import { RenderSchema, slotArgs, viewArgs } from './controller';
-import { TriView } from './view';
-import { AbstractRender } from '@widgeteria/abstract/src/abstract-render';
+import { WidgeteriaView } from './view';
+import { WidgeteriaAbstractRender } from '@widgeteria/abstract';
 
 export class Widget<BaseContext, ViewArgs, ViewResult> {
-  readonly #context: TriContext<BaseContext>;
+  readonly #context: WidgeteriaContext<BaseContext>;
   readonly #renderSchema: RenderSchema<ViewArgs>;
-  readonly #view: TriView<ViewArgs, ViewResult>;
+  readonly #view: WidgeteriaView<ViewArgs, ViewResult>;
 
   constructor(
-    context: TriContext<BaseContext>,
+    context: WidgeteriaContext<BaseContext>,
     renderSchema: RenderSchema<ViewArgs>,
-    view: TriView<ViewArgs, ViewResult>,
+    view: WidgeteriaView<ViewArgs, ViewResult>,
   ) {
     this.#context = context;
     this.#renderSchema = renderSchema;
     this.#view = view;
   }
 
-  async render(render: AbstractRender<ViewResult>): Promise<string> {
+  async render(render: WidgeteriaAbstractRender<ViewResult>): Promise<string> {
     const args = await this.#renderSchema[viewArgs];
     const viewResult = this.#view({ args });
     return render.render(viewResult);
@@ -35,3 +35,9 @@ export class Widget<BaseContext, ViewArgs, ViewResult> {
     return this.#renderSchema[slotArgs][name];
   }
 }
+
+export type _Widget<BaseContext, ViewArgs, ViewResult> = Widget<
+  BaseContext,
+  ViewArgs,
+  ViewResult
+>;

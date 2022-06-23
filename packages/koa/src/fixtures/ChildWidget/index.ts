@@ -1,8 +1,8 @@
-import { declareWidget } from '@widgeteria/widget';
+import { declareWidgeteriaWidget } from '@widgeteria/widget';
 import { controller } from './controller';
 import { view } from './view';
 
-export const ChildWidget = declareWidget({
+export const ChildWidget = declareWidgeteriaWidget({
   controller,
   view,
 });

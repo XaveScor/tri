@@ -1,11 +1,14 @@
 import { Widget } from './widget';
-import { createChildrenTriContext, TriContext } from '@widgeteria/context';
-import { TriController } from './controller';
-import { TriView } from './view';
+import {
+  createChildrenWidgeteriaContext,
+  WidgeteriaContext,
+} from '@widgeteria/context';
+import { WidgeteriaController } from './controller';
+import { WidgeteriaView } from './view';
 
 type WidgetSchema<BaseContext, WidgetArgs, ViewArgs, ViewResult> = {
-  controller: TriController<BaseContext, WidgetArgs, ViewArgs>;
-  view: TriView<ViewArgs, ViewResult>;
+  controller: WidgeteriaController<BaseContext, WidgetArgs, ViewArgs>;
+  view: WidgeteriaView<ViewArgs, ViewResult>;
 };
 
 class WidgetDeclaration<BaseContext, WidgetArgs, ViewArgs, ViewResult> {
@@ -18,10 +21,10 @@ class WidgetDeclaration<BaseContext, WidgetArgs, ViewArgs, ViewResult> {
   }
 
   create(
-    context: TriContext<BaseContext>,
+    context: WidgeteriaContext<BaseContext>,
     args: WidgetArgs,
   ): Widget<BaseContext, ViewArgs, ViewResult> {
-    const childContext = createChildrenTriContext(context);
+    const childContext = createChildrenWidgeteriaContext(context);
     const widgetArgs = { args };
     const renderSchema = this.#schema.controller(childContext, widgetArgs);
     return new Widget(childContext, renderSchema, this.#schema.view);
@@ -31,7 +34,12 @@ class WidgetDeclaration<BaseContext, WidgetArgs, ViewArgs, ViewResult> {
 export type _WidgetDeclaration<BaseContext, WidgetArgs, ViewArgs, ViewResult> =
   WidgetDeclaration<BaseContext, WidgetArgs, ViewArgs, ViewResult>;
 
-export function declareWidget<BaseContext, WidgetArgs, ViewArgs, ViewResult>(
+export function declareWidgeteriaWidget<
+  BaseContext,
+  WidgetArgs,
+  ViewArgs,
+  ViewResult,
+>(
   schema: WidgetSchema<BaseContext, WidgetArgs, ViewArgs, ViewResult>,
 ): WidgetDeclaration<BaseContext, WidgetArgs, ViewArgs, ViewResult> {
   return new WidgetDeclaration(schema);

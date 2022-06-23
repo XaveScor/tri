@@ -1,5 +1,5 @@
-import { TriContext } from '@widgeteria/context';
-import { TriWidgetArgs } from './widgetArgs';
+import { WidgeteriaContext } from '@widgeteria/context';
+import { WidgeteriaWidgetArgs } from './widgetArgs';
 import { Promisable } from '@widgeteria/promise';
 import { Widget } from './widget';
 
@@ -11,13 +11,13 @@ export type RenderSchema<ViewArgs> = {
   [slotArgs]?: { [name: string]: Widget<any, any, any> };
 };
 
-export type TriController<BaseContext, WidgetArgs, ViewArgs> = (
-  context: TriContext<BaseContext>,
-  widgetArgs: TriWidgetArgs<WidgetArgs>,
+export type WidgeteriaController<BaseContext, WidgetArgs, ViewArgs> = (
+  context: WidgeteriaContext<BaseContext>,
+  widgetArgs: WidgeteriaWidgetArgs<WidgetArgs>,
 ) => RenderSchema<ViewArgs>;
 
-export function createTriController<BaseContext, WidgetArgs, ViewArgs>(
-  controller: TriController<BaseContext, WidgetArgs, ViewArgs>,
+export function createWidgeteriaController<BaseContext, WidgetArgs, ViewArgs>(
+  controller: WidgeteriaController<BaseContext, WidgetArgs, ViewArgs>,
 ) {
   return controller;
 }

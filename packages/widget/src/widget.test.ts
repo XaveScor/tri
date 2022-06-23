@@ -1,27 +1,31 @@
-import { declareWidget, createTriController, viewArgs } from './index';
-import { createTriContext } from '@widgeteria/context';
-import { AbstractRender } from '@widgeteria/abstract';
-import { createTriView } from './view';
+import {
+  declareWidgeteriaWidget,
+  createWidgeteriaController,
+  viewArgs,
+} from './index';
+import { createWidgeteriaContext } from '@widgeteria/context';
+import { WidgeteriaAbstractRender } from '@widgeteria/abstract';
+import { createWidgeteriaView } from './view';
 
 describe('widget', () => {
   it('simple render', async () => {
     const renderResult = 'test view arg';
 
-    const controller = createTriController(() => {
+    const controller = createWidgeteriaController(() => {
       return {
         [viewArgs]: { x: renderResult },
       };
     });
-    const widgetDeclaration = declareWidget({
+    const widgetDeclaration = declareWidgeteriaWidget({
       controller,
-      view: createTriView(({ args }) => args.x),
+      view: createWidgeteriaView(({ args }) => args.x),
     });
 
-    const context = createTriContext({});
+    const context = createWidgeteriaContext({});
 
     const widget = widgetDeclaration.create(context, undefined);
 
-    const writer = new (class extends AbstractRender<string> {
+    const writer = new (class extends WidgeteriaAbstractRender<string> {
       render(str) {
         return str;
       }

@@ -1,7 +1,8 @@
-import { createTriView } from '@widgeteria/widget';
+import { createWidgeteriaView } from '@widgeteria/widget';
 import { ViewArgs } from './types';
-import { createSlotSplitString } from '@widgeteria/slot';
+import { createWidgeteriaSlotSplitString } from '@widgeteria/slot';
 
-export const view = createTriView(
-  ({ args }: ViewArgs) => args.b + ' split ' + createSlotSplitString('slot'),
+export const view = createWidgeteriaView(
+  ({ args }: ViewArgs) =>
+    args.b + ' split ' + createWidgeteriaSlotSplitString('slot'),
 );

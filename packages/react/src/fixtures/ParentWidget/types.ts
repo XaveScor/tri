@@ -1,4 +1,4 @@
-import { TriViewArgs, TriWidgetArgs } from '@widgeteria/widget';
+import { WidgeteriaViewArgs, WidgeteriaWidgetArgs } from '@widgeteria/widget';
 
-export type WidgetArgs = TriWidgetArgs<{ a: string }>;
-export type ViewArgs = TriViewArgs<{ b: string }>;
+export type WidgetArgs = WidgeteriaWidgetArgs<{ a: string }>;
+export type ViewArgs = WidgeteriaViewArgs<{ b: string }>;

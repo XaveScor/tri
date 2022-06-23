@@ -1,2 +1,2 @@
-export { AbstractWriter } from './abstract-writer';
-export { AbstractRender } from './abstract-render';
+export { WidgeteriaAbstractWriter } from './widgeteria-abstract-writer';
+export { WidgeteriaAbstractRender } from './widgeteria-abstract-render';

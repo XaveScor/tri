@@ -1,4 +1,4 @@
-export class AbstractRender<ViewResult> {
+export class WidgeteriaAbstractRender<ViewResult> {
   constructor() {}
 
   render(viewResult: ViewResult): string {

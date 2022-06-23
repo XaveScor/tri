@@ -1,1 +1,1 @@
-export { createDrzewoMiddleware } from './createDrzewoMiddleware';
+export { createWidgeteriaMiddleware } from './createWidgeteriaMiddleware';

@@ -5,37 +5,39 @@ import {
 
 const contextSymbol = Symbol('context');
 
-type TriInnerContext<TriContext> = {
-  parent: TriContext | typeof noParentContextSymbol;
-  messageBus: MessageBus<TriContext>;
+type WidgeteriaInnerContext<WidgeteriaContext> = {
+  parent: WidgeteriaContext | typeof noParentContextSymbol;
+  messageBus: MessageBus<WidgeteriaContext>;
 };
 
-export type TriContext<Other> = Other & {
-  [contextSymbol]: TriInnerContext<TriContext<Other>>;
+export type WidgeteriaContext<Other> = Other & {
+  [contextSymbol]: WidgeteriaInnerContext<WidgeteriaContext<Other>>;
 };
 
-export function getTriInnerContext<T>(
-  context: TriContext<T>,
-): TriInnerContext<TriContext<T>> {
+export function getWidgeteriaInnerContext<T>(
+  context: WidgeteriaContext<T>,
+): WidgeteriaInnerContext<WidgeteriaContext<T>> {
   return context[contextSymbol];
 }
 
-export function createTriContext<Other>(obj: Other): TriContext<Other> {
+export function createWidgeteriaContext<Other>(
+  obj: Other,
+): WidgeteriaContext<Other> {
   return {
     ...obj,
     [contextSymbol]: {
-      messageBus: new MessageBus<TriContext<Other>>((c) => {
-        return getTriInnerContext(c).parent;
+      messageBus: new MessageBus<WidgeteriaContext<Other>>((c) => {
+        return getWidgeteriaInnerContext(c).parent;
       }),
       parent: noParentContextSymbol,
     },
   };
 }
 
-export function createChildrenTriContext<Other>(
-  context: TriContext<Other>,
-): TriContext<Other> {
-  const innerContext = getTriInnerContext(context);
+export function createChildrenWidgeteriaContext<Other>(
+  context: WidgeteriaContext<Other>,
+): WidgeteriaContext<Other> {
+  const innerContext = getWidgeteriaInnerContext(context);
   return {
     ...context,
     [contextSymbol]: {
@@ -46,7 +48,7 @@ export function createChildrenTriContext<Other>(
 }
 
 export function getMessageBus<Context>(
-  context: TriContext<Context>,
-): MessageBus<TriContext<Context>> {
-  return getTriInnerContext(context).messageBus;
+  context: WidgeteriaContext<Context>,
+): MessageBus<WidgeteriaContext<Context>> {
+  return getWidgeteriaInnerContext(context).messageBus;
 }

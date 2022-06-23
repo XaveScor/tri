@@ -1,22 +1,22 @@
-import { render } from '@widgeteria/render';
+import { widgeteriaRender } from '@widgeteria/render';
 import { ChildWidget } from './fixtures/ChildWidget';
-import { AbstractWriter } from '@widgeteria/abstract';
-import { ReactRender } from './render';
+import { WidgeteriaAbstractWriter } from '@widgeteria/abstract';
+import { WidgeteriaReactRender } from './render';
 import { ParentWidget } from './fixtures/ParentWidget';
 
 describe('render', () => {
   it('base', async () => {
     let res = '';
-    await render({
+    await widgeteriaRender({
       context: {},
       widgetDeclaration: ChildWidget,
       args: { a: 'from args' },
-      writer: new (class extends AbstractWriter {
+      writer: new (class extends WidgeteriaAbstractWriter {
         write(chunk: string) {
           res += chunk;
         }
       })(),
-      render: new ReactRender(),
+      render: new WidgeteriaReactRender(),
     });
 
     expect(res).toMatchSnapshot();
@@ -24,16 +24,16 @@ describe('render', () => {
 
   it('slot', async () => {
     let res = '';
-    await render({
+    await widgeteriaRender({
       context: {},
       widgetDeclaration: ParentWidget,
       args: { a: 'from args' },
-      writer: new (class extends AbstractWriter {
+      writer: new (class extends WidgeteriaAbstractWriter {
         write(chunk: string) {
           res += chunk;
         }
       })(),
-      render: new ReactRender(),
+      render: new WidgeteriaReactRender(),
     });
 
     expect(res).toMatchSnapshot();

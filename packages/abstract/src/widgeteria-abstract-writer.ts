@@ -1,4 +1,4 @@
-export class AbstractWriter {
+export class WidgeteriaAbstractWriter {
   constructor() {}
 
   write(chunk: string) {

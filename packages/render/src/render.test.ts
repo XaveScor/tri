@@ -1,21 +1,24 @@
-import { render } from './index';
+import { widgeteriaRender } from './index';
 import { ChildWidget } from './fixtures/ChildWidget';
-import { AbstractRender, AbstractWriter } from '@widgeteria/abstract';
+import {
+  WidgeteriaAbstractRender,
+  WidgeteriaAbstractWriter,
+} from '@widgeteria/abstract';
 import { ParentWidget } from './fixtures/ParentWidget';
 
 describe('render', () => {
   it('base', async () => {
     let res = '';
-    await render({
+    await widgeteriaRender({
       context: {},
       widgetDeclaration: ChildWidget,
       args: { a: 'from args' },
-      writer: new (class extends AbstractWriter {
+      writer: new (class extends WidgeteriaAbstractWriter {
         write(chunk: string) {
           res += chunk;
         }
       })(),
-      render: new (class extends AbstractRender<string> {
+      render: new (class extends WidgeteriaAbstractRender<string> {
         render(chunk: string) {
           return chunk;
         }
@@ -27,16 +30,16 @@ describe('render', () => {
 
   it('slot', async () => {
     let res = '';
-    await render({
+    await widgeteriaRender({
       context: {},
       widgetDeclaration: ParentWidget,
       args: { a: 'from args' },
-      writer: new (class extends AbstractWriter {
+      writer: new (class extends WidgeteriaAbstractWriter {
         write(chunk: string) {
           res += chunk;
         }
       })(),
-      render: new (class extends AbstractRender<string> {
+      render: new (class extends WidgeteriaAbstractRender<string> {
         render(chunk: string) {
           return chunk;
         }

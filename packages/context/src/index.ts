@@ -1,7 +1,7 @@
 export {
-  createTriContext,
-  createChildrenTriContext,
+  createWidgeteriaContext,
+  createChildrenWidgeteriaContext,
   getMessageBus,
-  type TriContext,
-  getTriInnerContext,
+  type WidgeteriaContext,
+  getWidgeteriaInnerContext,
 } from './context';

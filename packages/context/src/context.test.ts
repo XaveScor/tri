@@ -1,6 +1,6 @@
 import {
-  createChildrenTriContext,
-  createTriContext,
+  createChildrenWidgeteriaContext,
+  createWidgeteriaContext,
   getMessageBus,
 } from './index';
 import { MessageFactory } from '@widgeteria/hierarchy-message-bus';
@@ -8,74 +8,78 @@ import { MessageFactory } from '@widgeteria/hierarchy-message-bus';
 describe('context base operations', () => {
   it('creation', () => {
     const otherContext = { a: 1, b: 3 };
-    const triContext = createTriContext(otherContext);
+    const widgeteriaContext = createWidgeteriaContext(otherContext);
 
-    expect(triContext).toMatchObject(otherContext);
+    expect(widgeteriaContext).toMatchObject(otherContext);
   });
 
   it('children context', () => {
     const otherContext = { a: 1, b: 3 };
-    const triContext = createTriContext(otherContext);
+    const widgeteriaContext = createWidgeteriaContext(otherContext);
 
-    expect(createChildrenTriContext(triContext)).toMatchObject(otherContext);
+    expect(createChildrenWidgeteriaContext(widgeteriaContext)).toMatchObject(
+      otherContext,
+    );
   });
 });
 
 describe('message-bus', () => {
   it('fire message', () => {
-    const triContext = createTriContext({});
-    const messageBus = getMessageBus(triContext);
+    const widgeteriaContext = createWidgeteriaContext({});
+    const messageBus = getMessageBus(widgeteriaContext);
 
     const messageFactory = new MessageFactory<string>();
     const subscriber = jest.fn();
-    messageBus.subscribe(triContext, messageFactory, subscriber);
+    messageBus.subscribe(widgeteriaContext, messageFactory, subscriber);
 
     const data = 'asd';
-    const message = messageFactory.create(triContext, data);
+    const message = messageFactory.create(widgeteriaContext, data);
     messageBus.emit(message);
 
     expect(subscriber).toBeCalledTimes(1);
-    expect(subscriber).toBeCalledWith(data, triContext);
+    expect(subscriber).toBeCalledWith(data, widgeteriaContext);
   });
 
   it('fire message to top', () => {
-    const triContext = createTriContext({});
-    const triChindlenContext = createChildrenTriContext(triContext);
+    const widgeteriaContext = createWidgeteriaContext({});
+    const childrenWidgeteriaContext =
+      createChildrenWidgeteriaContext(widgeteriaContext);
 
-    const messageBus = getMessageBus(triContext);
-    const childrenMessageBus = getMessageBus(triChindlenContext);
+    const messageBus = getMessageBus(widgeteriaContext);
+    const childrenMessageBus = getMessageBus(childrenWidgeteriaContext);
 
     const messageFactory = new MessageFactory<string>();
     const subscriber = jest.fn();
-    messageBus.subscribe(triContext, messageFactory, subscriber);
+    messageBus.subscribe(widgeteriaContext, messageFactory, subscriber);
 
     const data = 'asd';
-    const message = messageFactory.create(triChindlenContext, data);
+    const message = messageFactory.create(childrenWidgeteriaContext, data);
     childrenMessageBus.emitToTop(message);
 
     expect(subscriber).toBeCalledTimes(1);
-    expect(subscriber).toBeCalledWith(data, triChindlenContext);
+    expect(subscriber).toBeCalledWith(data, childrenWidgeteriaContext);
   });
 
   it('fire message on current level', () => {
-    const triContext = createTriContext({});
-    const childrenTriContext = createChildrenTriContext(triContext);
+    const widgeteriaContext = createWidgeteriaContext({});
+    const childrenWidgeteriaContext =
+      createChildrenWidgeteriaContext(widgeteriaContext);
 
-    const messageBus = getMessageBus(triContext);
-    const childrenMessageBus = getMessageBus(childrenTriContext);
+    const messageBus = getMessageBus(widgeteriaContext);
+    const childrenMessageBus = getMessageBus(childrenWidgeteriaContext);
 
     const messageFactory = new MessageFactory<string>();
     const subscriber = jest.fn();
     const childrenSubscriber = jest.fn();
-    messageBus.subscribe(triContext, messageFactory, subscriber);
+    messageBus.subscribe(widgeteriaContext, messageFactory, subscriber);
     childrenMessageBus.subscribe(
-      childrenTriContext,
+      childrenWidgeteriaContext,
       messageFactory,
       childrenSubscriber,
     );
 
     const data = 'asd';
-    const message = messageFactory.create(childrenTriContext, data);
+    const message = messageFactory.create(childrenWidgeteriaContext, data);
     childrenMessageBus.emit(message);
 
     expect(subscriber).not.toBeCalled();
