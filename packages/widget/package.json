@@ -1,6 +1,6 @@
 {
   "name": "@widgeteria/widget",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "src/index.ts",
   "scripts": {
@@ -11,9 +11,9 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "@widgeteria/abstract": "^0.0.1",
-    "@widgeteria/context": "^0.0.1",
-    "@widgeteria/hierarchy-message-bus": "^0.0.1",
-    "@widgeteria/promise": "^0.0.1"
+    "@widgeteria/abstract": "^0.0.2",
+    "@widgeteria/context": "^0.0.2",
+    "@widgeteria/hierarchy-message-bus": "^0.0.2",
+    "@widgeteria/promise": "^0.0.2"
   }
 }
