@@ -12,7 +12,7 @@ type WidgeteriaInnerContext<WidgeteriaContext> = {
 
 export type WidgeteriaContext<Other> = Other;
 
-export function getWidgeteriaInnerContext<T>(
+function getWidgeteriaInnerContext<T>(
   context: WidgeteriaContext<T>,
 ): WidgeteriaInnerContext<WidgeteriaContext<T>> {
   return context[contextSymbol];

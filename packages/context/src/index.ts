@@ -3,5 +3,4 @@ export {
   createChildrenWidgeteriaContext,
   getMessageBus,
   type WidgeteriaContext,
-  getWidgeteriaInnerContext,
 } from './context';
