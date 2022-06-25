@@ -8,22 +8,31 @@ export const slotArgs = Symbol('controller slots args');
 
 export type RenderSchema<ViewArgs> = {
   [viewArgs]: Promisable<ViewArgs>;
-  [slotArgs]?: { [name: string]: Widget<any, any, any> };
+  [slotArgs]?: { [name: string]: Widget<any, any, any, any> };
 };
 
 export type WidgeteriaController<
   BaseContext extends object,
+  RouteArgs,
   WidgetArgs,
   ViewArgs,
 > = (
-  context: WidgeteriaContext<BaseContext>,
+  context: WidgeteriaContext<BaseContext, RouteArgs>,
   widgetArgs: WidgeteriaWidgetArgs<WidgetArgs>,
 ) => RenderSchema<ViewArgs>;
 
 export function createWidgeteriaController<
   BaseContext extends object,
+  RouteArgs,
   WidgetArgs,
   ViewArgs,
->(controller: WidgeteriaController<BaseContext, WidgetArgs, ViewArgs>) {
+>(
+  controller: WidgeteriaController<
+    BaseContext,
+    RouteArgs,
+    WidgetArgs,
+    ViewArgs
+  >,
+) {
   return controller;
 }

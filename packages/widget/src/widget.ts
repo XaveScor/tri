@@ -7,16 +7,17 @@ import {
 } from '@widgeteria/abstract';
 
 export class Widget<
-  BaseContext,
+  BaseContext extends object,
+  RouteArgs,
   ViewArgs,
   ViewResult,
 > extends WidgeteriaAbstractWidget<ViewResult> {
-  readonly #context: WidgeteriaContext<BaseContext>;
+  readonly #context: WidgeteriaContext<BaseContext, RouteArgs>;
   readonly #renderSchema: RenderSchema<ViewArgs>;
   readonly #view: WidgeteriaView<ViewArgs, ViewResult>;
 
   constructor(
-    context: WidgeteriaContext<BaseContext>,
+    context: WidgeteriaContext<BaseContext, RouteArgs>,
     renderSchema: RenderSchema<ViewArgs>,
     view: WidgeteriaView<ViewArgs, ViewResult>,
   ) {

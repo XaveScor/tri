@@ -7,34 +7,59 @@ import { WidgeteriaController } from './controller';
 import { WidgeteriaView } from './view';
 import { WidgeteriaAbstractWidgetDeclaration } from '@widgeteria/abstract/src/widgeteria-abstract-widget-declaration';
 
-type WidgetSchema<BaseContext, WidgetArgs, ViewArgs, ViewResult> = {
-  controller: WidgeteriaController<BaseContext, WidgetArgs, ViewArgs>;
+type WidgetSchema<
+  BaseContext extends object,
+  RouteArgs,
+  WidgetArgs,
+  ViewArgs,
+  ViewResult,
+> = {
+  controller: WidgeteriaController<
+    BaseContext,
+    RouteArgs,
+    WidgetArgs,
+    ViewArgs
+  >;
   view: WidgeteriaView<ViewArgs, ViewResult>;
 };
 
 class WidgetDeclaration<
   BaseContext extends object,
+  RouteArgs,
   WidgetArgs,
   ViewArgs,
   ViewResult,
 > extends WidgeteriaAbstractWidgetDeclaration<
   BaseContext,
+  RouteArgs,
   WidgetArgs,
   ViewResult
 > {
-  #schema: WidgetSchema<BaseContext, WidgetArgs, ViewArgs, ViewResult>;
+  #schema: WidgetSchema<
+    BaseContext,
+    RouteArgs,
+    WidgetArgs,
+    ViewArgs,
+    ViewResult
+  >;
 
   constructor(
-    schema: WidgetSchema<BaseContext, WidgetArgs, ViewArgs, ViewResult>,
+    schema: WidgetSchema<
+      BaseContext,
+      RouteArgs,
+      WidgetArgs,
+      ViewArgs,
+      ViewResult
+    >,
   ) {
     super();
     this.#schema = schema;
   }
 
   create(
-    context: WidgeteriaContext<BaseContext>,
+    context: WidgeteriaContext<BaseContext, RouteArgs>,
     args: WidgetArgs,
-  ): Widget<BaseContext, ViewArgs, ViewResult> {
+  ): Widget<BaseContext, RouteArgs, ViewArgs, ViewResult> {
     const childContext = createChildrenWidgeteriaContext(context);
     const widgetArgs = { args };
     const renderSchema = this.#schema.controller(childContext, widgetArgs);
@@ -44,11 +69,18 @@ class WidgetDeclaration<
 
 export function declareWidgeteriaWidget<
   BaseContext extends object,
+  RouteArgs,
   WidgetArgs,
   ViewArgs,
   ViewResult,
 >(
-  schema: WidgetSchema<BaseContext, WidgetArgs, ViewArgs, ViewResult>,
-): WidgetDeclaration<BaseContext, WidgetArgs, ViewArgs, ViewResult> {
+  schema: WidgetSchema<
+    BaseContext,
+    RouteArgs,
+    WidgetArgs,
+    ViewArgs,
+    ViewResult
+  >,
+): WidgetDeclaration<BaseContext, RouteArgs, WidgetArgs, ViewArgs, ViewResult> {
   return new WidgetDeclaration(schema);
 }
