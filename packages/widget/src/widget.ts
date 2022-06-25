@@ -1,9 +1,16 @@
 import { WidgeteriaContext } from '@widgeteria/context';
 import { RenderSchema, slotArgs, viewArgs } from './controller';
 import { WidgeteriaView } from './view';
-import { WidgeteriaAbstractRender } from '@widgeteria/abstract';
+import {
+  WidgeteriaAbstractRender,
+  WidgeteriaAbstractWidget,
+} from '@widgeteria/abstract';
 
-export class Widget<BaseContext, ViewArgs, ViewResult> {
+export class Widget<
+  BaseContext,
+  ViewArgs,
+  ViewResult,
+> extends WidgeteriaAbstractWidget<ViewResult> {
   readonly #context: WidgeteriaContext<BaseContext>;
   readonly #renderSchema: RenderSchema<ViewArgs>;
   readonly #view: WidgeteriaView<ViewArgs, ViewResult>;
@@ -13,6 +20,7 @@ export class Widget<BaseContext, ViewArgs, ViewResult> {
     renderSchema: RenderSchema<ViewArgs>,
     view: WidgeteriaView<ViewArgs, ViewResult>,
   ) {
+    super();
     this.#context = context;
     this.#renderSchema = renderSchema;
     this.#view = view;
@@ -35,9 +43,3 @@ export class Widget<BaseContext, ViewArgs, ViewResult> {
     return this.#renderSchema[slotArgs][name];
   }
 }
-
-export type _Widget<BaseContext, ViewArgs, ViewResult> = Widget<
-  BaseContext,
-  ViewArgs,
-  ViewResult
->;

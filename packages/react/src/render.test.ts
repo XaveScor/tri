@@ -9,7 +9,10 @@ describe('render', () => {
   it('base', async () => {
     let res = '';
     await widgeteriaRender({
-      context: createWidgeteriaContext({}),
+      context: createWidgeteriaContext({
+        baseContext: {},
+        routeArgs: {},
+      }),
       widgetDeclaration: ChildWidget,
       args: { a: 'from args' },
       writer: new (class extends WidgeteriaAbstractWriter {
@@ -26,7 +29,10 @@ describe('render', () => {
   it('slot', async () => {
     let res = '';
     await widgeteriaRender({
-      context: createWidgeteriaContext({}),
+      context: createWidgeteriaContext({
+        baseContext: {},
+        routeArgs: {},
+      }),
       widgetDeclaration: ParentWidget,
       args: { a: 'from args' },
       writer: new (class extends WidgeteriaAbstractWriter {

@@ -2,34 +2,46 @@ import {
   MessageBus,
   noParentContextSymbol,
 } from '@widgeteria/hierarchy-message-bus';
+import { WidgeteriaAbstractContext } from '@widgeteria/abstract';
 
 const contextSymbol = Symbol('context');
 
-type WidgeteriaInnerContext<WidgeteriaContext> = {
-  parent: WidgeteriaContext | typeof noParentContextSymbol;
-  messageBus: MessageBus<WidgeteriaContext>;
+type WidgeteriaInnerContext<BaseContext extends object, RouteArgs> = {
+  parent:
+    | WidgeteriaContext<BaseContext, RouteArgs>
+    | typeof noParentContextSymbol;
+  messageBus: MessageBus<WidgeteriaContext<BaseContext, RouteArgs>>;
+  routeArgs: RouteArgs;
 };
 
-export type WidgeteriaContext<Other> = Other;
+export type WidgeteriaContext<
+  Other extends object,
+  RouteArgs,
+> = WidgeteriaAbstractContext<Other, RouteArgs>;
 
-function getWidgeteriaInnerContext<T>(
-  context: WidgeteriaContext<T>,
-): WidgeteriaInnerContext<WidgeteriaContext<T>> {
+function getWidgeteriaInnerContext<T extends object, RouteArgs>(
+  context: WidgeteriaContext<T, RouteArgs>,
+): WidgeteriaInnerContext<T, RouteArgs> {
   return context[contextSymbol];
 }
 
-export function createWidgeteriaContext<Other extends object>(
-  obj: Other,
-): WidgeteriaContext<Other> {
-  const innerContext = {
-    messageBus: new MessageBus<WidgeteriaContext<Other>>((c) => {
+export function createWidgeteriaContext<Other extends object, RouteArgs>({
+  baseContext,
+  routeArgs,
+}: {
+  baseContext: Other;
+  routeArgs: RouteArgs;
+}): WidgeteriaContext<Other, RouteArgs> {
+  const innerContext: WidgeteriaInnerContext<Other, RouteArgs> = {
+    messageBus: new MessageBus<WidgeteriaContext<Other, RouteArgs>>((c) => {
       return getWidgeteriaInnerContext(c).parent;
     }),
     parent: noParentContextSymbol,
+    routeArgs,
   };
 
-  return new Proxy(obj, {
-    get(target: Other, p: string | symbol, receiver: any): any {
+  return new Proxy(baseContext, {
+    get(target, p, receiver) {
       if (p === contextSymbol) {
         return innerContext;
       }
@@ -39,19 +51,18 @@ export function createWidgeteriaContext<Other extends object>(
   });
 }
 
-export function createChildrenWidgeteriaContext<Other extends object>(
-  context: WidgeteriaContext<Other>,
-): WidgeteriaContext<Other> {
-  const childrenInnerContext = {
+export function createChildrenWidgeteriaContext<
+  Other extends object,
+  RouteArgs,
+  WContext extends WidgeteriaContext<Other, RouteArgs>,
+>(context: WContext): WContext {
+  const childrenInnerContext: WidgeteriaInnerContext<Other, RouteArgs> = {
     messageBus: getMessageBus(context),
     parent: context,
+    routeArgs: getRouteArgs(context),
   };
   return new Proxy(context, {
-    get(
-      target: WidgeteriaContext<Other>,
-      p: string | symbol,
-      receiver: any,
-    ): any {
+    get(target, p: string | symbol, receiver: any): any {
       if (p === contextSymbol) {
         return childrenInnerContext;
       }
@@ -61,8 +72,14 @@ export function createChildrenWidgeteriaContext<Other extends object>(
   });
 }
 
-export function getMessageBus<Context>(
-  context: WidgeteriaContext<Context>,
-): MessageBus<WidgeteriaContext<Context>> {
-  return getWidgeteriaInnerContext(context).messageBus;
+export function getMessageBus<BaseContext extends object, RouteArgs>(
+  context: WidgeteriaContext<BaseContext, RouteArgs>,
+): MessageBus<WidgeteriaContext<BaseContext, RouteArgs>> {
+  return getWidgeteriaInnerContext<BaseContext, RouteArgs>(context).messageBus;
+}
+
+export function getRouteArgs<RouteArgs>(
+  context: WidgeteriaContext<any, RouteArgs>,
+): RouteArgs {
+  return getWidgeteriaInnerContext<any, RouteArgs>(context).routeArgs;
 }

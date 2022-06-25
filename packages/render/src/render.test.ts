@@ -10,7 +10,10 @@ import { createWidgeteriaContext } from '@widgeteria/context';
 describe('render', () => {
   it('base', async () => {
     let res = '';
-    const context = createWidgeteriaContext({});
+    const context = createWidgeteriaContext({
+      baseContext: {},
+      routeArgs: {},
+    });
     await widgeteriaRender({
       context,
       widgetDeclaration: ChildWidget,
@@ -32,7 +35,10 @@ describe('render', () => {
 
   it('slot', async () => {
     let res = '';
-    const context = createWidgeteriaContext({});
+    const context = createWidgeteriaContext({
+      baseContext: {},
+      routeArgs: {},
+    });
     await widgeteriaRender({
       context,
       widgetDeclaration: ParentWidget,

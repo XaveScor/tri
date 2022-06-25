@@ -21,7 +21,10 @@ describe('widget', () => {
       view: createWidgeteriaView(({ args }) => args.x),
     });
 
-    const context = createWidgeteriaContext({});
+    const context = createWidgeteriaContext({
+      baseContext: {},
+      routeArgs: {},
+    });
 
     const widget = widgetDeclaration.create(context, undefined);
 

@@ -14,7 +14,9 @@
     "@widgeteria/abstract": "^0.0.2",
     "@widgeteria/context": "^0.0.2",
     "@widgeteria/hierarchy-message-bus": "^0.0.2",
-    "@widgeteria/slot": "^0.0.2",
+    "@widgeteria/slot": "^0.0.2"
+  },
+  "devDependencies": {
     "@widgeteria/widget": "^0.0.2"
   }
 }

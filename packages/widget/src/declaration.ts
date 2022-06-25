@@ -5,18 +5,29 @@ import {
 } from '@widgeteria/context';
 import { WidgeteriaController } from './controller';
 import { WidgeteriaView } from './view';
+import { WidgeteriaAbstractWidgetDeclaration } from '@widgeteria/abstract/src/widgeteria-abstract-widget-declaration';
 
 type WidgetSchema<BaseContext, WidgetArgs, ViewArgs, ViewResult> = {
   controller: WidgeteriaController<BaseContext, WidgetArgs, ViewArgs>;
   view: WidgeteriaView<ViewArgs, ViewResult>;
 };
 
-class WidgetDeclaration<BaseContext, WidgetArgs, ViewArgs, ViewResult> {
+class WidgetDeclaration<
+  BaseContext extends object,
+  WidgetArgs,
+  ViewArgs,
+  ViewResult,
+> extends WidgeteriaAbstractWidgetDeclaration<
+  BaseContext,
+  WidgetArgs,
+  ViewResult
+> {
   #schema: WidgetSchema<BaseContext, WidgetArgs, ViewArgs, ViewResult>;
 
   constructor(
     schema: WidgetSchema<BaseContext, WidgetArgs, ViewArgs, ViewResult>,
   ) {
+    super();
     this.#schema = schema;
   }
 
@@ -31,11 +42,8 @@ class WidgetDeclaration<BaseContext, WidgetArgs, ViewArgs, ViewResult> {
   }
 }
 
-export type _WidgetDeclaration<BaseContext, WidgetArgs, ViewArgs, ViewResult> =
-  WidgetDeclaration<BaseContext, WidgetArgs, ViewArgs, ViewResult>;
-
 export function declareWidgeteriaWidget<
-  BaseContext,
+  BaseContext extends object,
   WidgetArgs,
   ViewArgs,
   ViewResult,

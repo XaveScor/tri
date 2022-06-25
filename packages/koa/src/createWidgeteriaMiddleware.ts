@@ -3,23 +3,27 @@ import { createWidgeteriaContext } from '@widgeteria/context';
 import { widgeteriaRender } from '@widgeteria/render';
 import { createWriter } from './createWriter';
 import { WidgeteriaReactRender } from '@widgeteria/react';
-import { WidgeteriaWidgetDeclaration } from '@widgeteria/widget';
 import React from 'react';
+import { WidgeteriaAbstractWidgetDeclaration } from '@widgeteria/abstract';
 
 export function createWidgeteriaMiddleware<WidgetArgs, ViewArgs>(
-  widgetDeclaration: WidgeteriaWidgetDeclaration<
+  widgetDeclaration: WidgeteriaAbstractWidgetDeclaration<
     Koa.Context,
+    any,
     WidgetArgs,
-    ViewArgs,
     React.ReactElement
   >,
   args: WidgetArgs,
 ) {
-  return async (context: Koa.Context) => {
-    const widgeteriaContext = createWidgeteriaContext(context);
+  return async (baseContext: Koa.Context) => {
+    const widgeteriaContext = createWidgeteriaContext({
+      baseContext,
+      routeArgs: {},
+    });
 
     await widgeteriaRender<
       Koa.Context,
+      any,
       WidgetArgs,
       ViewArgs,
       React.ReactElement

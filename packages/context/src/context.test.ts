@@ -2,30 +2,40 @@ import {
   createChildrenWidgeteriaContext,
   createWidgeteriaContext,
   getMessageBus,
+  getRouteArgs,
 } from './index';
 import { MessageFactory } from '@widgeteria/hierarchy-message-bus';
 
 describe('context base operations', () => {
   it('creation', () => {
-    const otherContext = { a: 1, b: 3 };
-    const widgeteriaContext = createWidgeteriaContext(otherContext);
+    const baseContext = { a: 1, b: 3 };
+    const widgeteriaContext = createWidgeteriaContext({
+      baseContext,
+      routeArgs: {},
+    });
 
-    expect(widgeteriaContext).toMatchObject(otherContext);
+    expect(widgeteriaContext).toMatchObject(baseContext);
   });
 
   it('children context', () => {
-    const otherContext = { a: 1, b: 3 };
-    const widgeteriaContext = createWidgeteriaContext(otherContext);
+    const baseContext = { a: 1, b: 3 };
+    const widgeteriaContext = createWidgeteriaContext({
+      baseContext,
+      routeArgs: {},
+    });
 
     expect(createChildrenWidgeteriaContext(widgeteriaContext)).toMatchObject(
-      otherContext,
+      baseContext,
     );
   });
 });
 
 describe('message-bus', () => {
   it('fire message', () => {
-    const widgeteriaContext = createWidgeteriaContext({});
+    const widgeteriaContext = createWidgeteriaContext({
+      baseContext: {},
+      routeArgs: {},
+    });
     const messageBus = getMessageBus(widgeteriaContext);
 
     const messageFactory = new MessageFactory<string>();
@@ -41,7 +51,10 @@ describe('message-bus', () => {
   });
 
   it('fire message to top', () => {
-    const widgeteriaContext = createWidgeteriaContext({});
+    const widgeteriaContext = createWidgeteriaContext({
+      baseContext: {},
+      routeArgs: {},
+    });
     const childrenWidgeteriaContext =
       createChildrenWidgeteriaContext(widgeteriaContext);
 
@@ -61,7 +74,10 @@ describe('message-bus', () => {
   });
 
   it('fire message on current level', () => {
-    const widgeteriaContext = createWidgeteriaContext({});
+    const widgeteriaContext = createWidgeteriaContext({
+      baseContext: {},
+      routeArgs: {},
+    });
     const childrenWidgeteriaContext =
       createChildrenWidgeteriaContext(widgeteriaContext);
 
@@ -84,5 +100,18 @@ describe('message-bus', () => {
 
     expect(subscriber).not.toBeCalled();
     expect(childrenSubscriber).toBeCalledTimes(1);
+  });
+});
+
+describe('route args', () => {
+  it('validate', () => {
+    const context = createWidgeteriaContext({
+      baseContext: {},
+      routeArgs: {
+        a: 1,
+      },
+    });
+
+    expect(getRouteArgs(context)).toMatchObject({ a: 1 });
   });
 });
