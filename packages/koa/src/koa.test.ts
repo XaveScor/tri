@@ -3,6 +3,7 @@ import Request from 'supertest';
 import { createWidgeteriaMiddleware } from './index';
 import { ChildWidget } from './fixtures/ChildWidget';
 import { WidgeteriaRouter } from '@widgeteria/router';
+import { WidgeteriaReactRender } from '@widgeteria/react';
 
 describe('koa', () => {
   it('base middleware', async () => {
@@ -10,7 +11,13 @@ describe('koa', () => {
     const router = new WidgeteriaRouter<Koa.Context, { a: string }, any, any>();
     router.register('/child', ChildWidget);
 
-    app.use(createWidgeteriaMiddleware(router, { a: '123' }));
+    app.use(
+      createWidgeteriaMiddleware(
+        router,
+        { a: '123' },
+        new WidgeteriaReactRender(),
+      ),
+    );
 
     const response = await Request(app.callback()).get('/child');
 
@@ -22,7 +29,13 @@ describe('koa', () => {
     const router = new WidgeteriaRouter<Koa.Context, { a: string }, any, any>();
     router.register('/child', ChildWidget);
 
-    app.use(createWidgeteriaMiddleware(router, { a: '123' }));
+    app.use(
+      createWidgeteriaMiddleware(
+        router,
+        { a: '123' },
+        new WidgeteriaReactRender(),
+      ),
+    );
 
     const str = 'widgeteria skipped';
     app.use(async (ctx) => {

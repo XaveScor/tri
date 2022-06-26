@@ -11,14 +11,15 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@widgeteria/abstract": "^0.0.3",
     "@widgeteria/context": "^0.0.3",
-    "@widgeteria/react": "^0.0.3",
     "@widgeteria/render": "^0.0.3",
     "@widgeteria/router": "^0.0.1",
     "koa": "^2.13.4",
     "react": "^18.2.0"
   },
   "devDependencies": {
-    "@types/koa": "^2.13.4"
+    "@types/koa": "^2.13.4",
+    "@widgeteria/react": "^0.0.3"
   }
 }
