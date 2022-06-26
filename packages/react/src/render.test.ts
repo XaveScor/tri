@@ -15,7 +15,7 @@ describe('render', () => {
       }),
       widgetDeclaration: ChildWidget,
       args: { a: 'from args' },
-      writer: new (class extends WidgeteriaAbstractWriter {
+      writer: new (class implements WidgeteriaAbstractWriter {
         write(chunk: string) {
           res += chunk;
         }
@@ -35,7 +35,7 @@ describe('render', () => {
       }),
       widgetDeclaration: ParentWidget,
       args: { a: 'from args' },
-      writer: new (class extends WidgeteriaAbstractWriter {
+      writer: new (class implements WidgeteriaAbstractWriter {
         write(chunk: string) {
           res += chunk;
         }

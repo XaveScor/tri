@@ -2,84 +2,70 @@ import {
   MessageBus,
   noParentContextSymbol,
 } from '@widgeteria/hierarchy-message-bus';
-import { WidgeteriaAbstractContext } from '@widgeteria/abstract';
 
-const contextSymbol = Symbol('context');
-
-type WidgeteriaInnerContext<BaseContext extends object, RouteArgs> = {
-  parent:
+export class WidgeteriaContext<BaseContext, RouteArgs> {
+  readonly #baseContext: BaseContext;
+  readonly #routeArgs: RouteArgs;
+  readonly #messageBus: MessageBus<WidgeteriaContext<BaseContext, RouteArgs>>;
+  readonly #parent:
     | WidgeteriaContext<BaseContext, RouteArgs>
     | typeof noParentContextSymbol;
-  messageBus: MessageBus<WidgeteriaContext<BaseContext, RouteArgs>>;
+
+  static create<BaseContext, RouteArgs>(
+    baseContext: BaseContext,
+    routeArgs: RouteArgs,
+  ) {
+    return new WidgeteriaContext(baseContext, routeArgs, noParentContextSymbol);
+  }
+
+  private constructor(
+    baseContext: BaseContext,
+    routeArgs: RouteArgs,
+    parent:
+      | typeof noParentContextSymbol
+      | WidgeteriaContext<BaseContext, RouteArgs>,
+  ) {
+    this.#baseContext = baseContext;
+    this.#routeArgs = routeArgs;
+    this.#parent = parent;
+    this.#messageBus =
+      parent === noParentContextSymbol
+        ? new MessageBus<WidgeteriaContext<BaseContext, RouteArgs>>((c) => {
+            return c.#getParentContext();
+          })
+        : parent.getMessageBus();
+  }
+
+  #getParentContext():
+    | WidgeteriaContext<BaseContext, RouteArgs>
+    | typeof noParentContextSymbol {
+    return this.#parent;
+  }
+
+  getBaseContext() {
+    return this.#baseContext;
+  }
+
+  getRouteArgs() {
+    return this.#routeArgs;
+  }
+
+  getMessageBus() {
+    return this.#messageBus;
+  }
+
+  createChild() {
+    return new WidgeteriaContext(this.#baseContext, this.#routeArgs, this);
+  }
+}
+
+type CreateWidgeteriaContextArgs<BaseContext, RouteArgs> = {
+  baseContext: BaseContext;
   routeArgs: RouteArgs;
 };
-
-export type WidgeteriaContext<
-  Other extends object,
-  RouteArgs,
-> = WidgeteriaAbstractContext<Other, RouteArgs>;
-
-function getWidgeteriaInnerContext<T extends object, RouteArgs>(
-  context: WidgeteriaContext<T, RouteArgs>,
-): WidgeteriaInnerContext<T, RouteArgs> {
-  return context[contextSymbol];
-}
-
-export function createWidgeteriaContext<Other extends object, RouteArgs>({
+export function createWidgeteriaContext<BaseContext, RouteArgs>({
   baseContext,
   routeArgs,
-}: {
-  baseContext: Other;
-  routeArgs: RouteArgs;
-}): WidgeteriaContext<Other, RouteArgs> {
-  const innerContext: WidgeteriaInnerContext<Other, RouteArgs> = {
-    messageBus: new MessageBus<WidgeteriaContext<Other, RouteArgs>>((c) => {
-      return getWidgeteriaInnerContext(c).parent;
-    }),
-    parent: noParentContextSymbol,
-    routeArgs,
-  };
-
-  return new Proxy(baseContext, {
-    get(target, p, receiver) {
-      if (p === contextSymbol) {
-        return innerContext;
-      }
-
-      return Reflect.get(target, p, receiver);
-    },
-  });
-}
-
-export function createChildrenWidgeteriaContext<
-  Other extends object,
-  RouteArgs,
-  WContext extends WidgeteriaContext<Other, RouteArgs>,
->(context: WContext): WContext {
-  const childrenInnerContext: WidgeteriaInnerContext<Other, RouteArgs> = {
-    messageBus: getMessageBus(context),
-    parent: context,
-    routeArgs: getRouteArgs(context),
-  };
-  return new Proxy(context, {
-    get(target, p: string | symbol, receiver: any): any {
-      if (p === contextSymbol) {
-        return childrenInnerContext;
-      }
-
-      return Reflect.get(target, p, receiver);
-    },
-  });
-}
-
-export function getMessageBus<BaseContext extends object, RouteArgs>(
-  context: WidgeteriaContext<BaseContext, RouteArgs>,
-): MessageBus<WidgeteriaContext<BaseContext, RouteArgs>> {
-  return getWidgeteriaInnerContext<BaseContext, RouteArgs>(context).messageBus;
-}
-
-export function getRouteArgs<RouteArgs>(
-  context: WidgeteriaContext<any, RouteArgs>,
-): RouteArgs {
-  return getWidgeteriaInnerContext<any, RouteArgs>(context).routeArgs;
+}: CreateWidgeteriaContextArgs<BaseContext, RouteArgs>) {
+  return WidgeteriaContext.create(baseContext, routeArgs);
 }

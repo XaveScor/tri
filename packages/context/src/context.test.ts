@@ -1,9 +1,4 @@
-import {
-  createChildrenWidgeteriaContext,
-  createWidgeteriaContext,
-  getMessageBus,
-  getRouteArgs,
-} from './index';
+import { createWidgeteriaContext } from './index';
 import { MessageFactory } from '@widgeteria/hierarchy-message-bus';
 
 describe('context base operations', () => {
@@ -14,7 +9,7 @@ describe('context base operations', () => {
       routeArgs: {},
     });
 
-    expect(widgeteriaContext).toMatchObject(baseContext);
+    expect(widgeteriaContext.getBaseContext()).toMatchObject(baseContext);
   });
 
   it('children context', () => {
@@ -24,7 +19,7 @@ describe('context base operations', () => {
       routeArgs: {},
     });
 
-    expect(createChildrenWidgeteriaContext(widgeteriaContext)).toMatchObject(
+    expect(widgeteriaContext.createChild().getBaseContext()).toMatchObject(
       baseContext,
     );
   });
@@ -36,7 +31,7 @@ describe('message-bus', () => {
       baseContext: {},
       routeArgs: {},
     });
-    const messageBus = getMessageBus(widgeteriaContext);
+    const messageBus = widgeteriaContext.getMessageBus();
 
     const messageFactory = new MessageFactory<string>();
     const subscriber = jest.fn();
@@ -55,11 +50,10 @@ describe('message-bus', () => {
       baseContext: {},
       routeArgs: {},
     });
-    const childrenWidgeteriaContext =
-      createChildrenWidgeteriaContext(widgeteriaContext);
+    const childrenWidgeteriaContext = widgeteriaContext.createChild();
 
-    const messageBus = getMessageBus(widgeteriaContext);
-    const childrenMessageBus = getMessageBus(childrenWidgeteriaContext);
+    const messageBus = widgeteriaContext.getMessageBus();
+    const childrenMessageBus = childrenWidgeteriaContext.getMessageBus();
 
     const messageFactory = new MessageFactory<string>();
     const subscriber = jest.fn();
@@ -78,11 +72,10 @@ describe('message-bus', () => {
       baseContext: {},
       routeArgs: {},
     });
-    const childrenWidgeteriaContext =
-      createChildrenWidgeteriaContext(widgeteriaContext);
+    const childrenWidgeteriaContext = widgeteriaContext.createChild();
 
-    const messageBus = getMessageBus(widgeteriaContext);
-    const childrenMessageBus = getMessageBus(childrenWidgeteriaContext);
+    const messageBus = widgeteriaContext.getMessageBus();
+    const childrenMessageBus = childrenWidgeteriaContext.getMessageBus();
 
     const messageFactory = new MessageFactory<string>();
     const subscriber = jest.fn();
@@ -112,6 +105,6 @@ describe('route args', () => {
       },
     });
 
-    expect(getRouteArgs(context)).toMatchObject({ a: 1 });
+    expect(context.getRouteArgs()).toMatchObject({ a: 1 });
   });
 });

@@ -4,13 +4,14 @@ import { widgeteriaRender } from '@widgeteria/render';
 import { createWriter } from './createWriter';
 import { WidgeteriaReactRender } from '@widgeteria/react';
 import React from 'react';
-import { WidgeteriaAbstractWidgetDeclaration } from '@widgeteria/abstract';
+import { WidgetDeclaration } from '@widgeteria/widget/src/declaration';
 
 export function createWidgeteriaMiddleware<WidgetArgs, ViewArgs>(
-  widgetDeclaration: WidgeteriaAbstractWidgetDeclaration<
+  widgetDeclaration: WidgetDeclaration<
     Koa.Context,
     any,
     WidgetArgs,
+    ViewArgs,
     React.ReactElement
   >,
   args: WidgetArgs,

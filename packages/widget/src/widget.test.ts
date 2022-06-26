@@ -4,8 +4,8 @@ import {
   viewArgs,
 } from './index';
 import { createWidgeteriaContext } from '@widgeteria/context';
-import { WidgeteriaAbstractRender } from '@widgeteria/abstract';
 import { createWidgeteriaView } from './view';
+import { WidgeteriaAbstractRender } from '@widgeteria/abstract';
 
 describe('widget', () => {
   it('simple render', async () => {
@@ -28,7 +28,7 @@ describe('widget', () => {
 
     const widget = widgetDeclaration.create(context, undefined);
 
-    const writer = new (class extends WidgeteriaAbstractRender<string> {
+    const writer = new (class implements WidgeteriaAbstractRender<string> {
       render(str) {
         return str;
       }

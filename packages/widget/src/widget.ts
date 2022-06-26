@@ -1,17 +1,14 @@
 import { WidgeteriaContext } from '@widgeteria/context';
 import { RenderSchema, slotArgs, viewArgs } from './controller';
 import { WidgeteriaView } from './view';
-import {
-  WidgeteriaAbstractRender,
-  WidgeteriaAbstractWidget,
-} from '@widgeteria/abstract';
+import { WidgeteriaAbstractRender } from '@widgeteria/abstract';
 
 export class Widget<
   BaseContext extends object,
   RouteArgs,
   ViewArgs,
   ViewResult,
-> extends WidgeteriaAbstractWidget<ViewResult> {
+> {
   readonly #context: WidgeteriaContext<BaseContext, RouteArgs>;
   readonly #renderSchema: RenderSchema<ViewArgs>;
   readonly #view: WidgeteriaView<ViewArgs, ViewResult>;
@@ -21,7 +18,6 @@ export class Widget<
     renderSchema: RenderSchema<ViewArgs>,
     view: WidgeteriaView<ViewArgs, ViewResult>,
   ) {
-    super();
     this.#context = context;
     this.#renderSchema = renderSchema;
     this.#view = view;

@@ -18,12 +18,12 @@ describe('render', () => {
       context,
       widgetDeclaration: ChildWidget,
       args: { a: 'from args' },
-      writer: new (class extends WidgeteriaAbstractWriter {
+      writer: new (class implements WidgeteriaAbstractWriter {
         write(chunk: string) {
           res += chunk;
         }
       })(),
-      render: new (class extends WidgeteriaAbstractRender<string> {
+      render: new (class implements WidgeteriaAbstractRender<string> {
         render(chunk: string) {
           return chunk;
         }
@@ -43,12 +43,12 @@ describe('render', () => {
       context,
       widgetDeclaration: ParentWidget,
       args: { a: 'from args' },
-      writer: new (class extends WidgeteriaAbstractWriter {
+      writer: new (class implements WidgeteriaAbstractWriter {
         write(chunk: string) {
           res += chunk;
         }
       })(),
-      render: new (class extends WidgeteriaAbstractRender<string> {
+      render: new (class implements WidgeteriaAbstractRender<string> {
         render(chunk: string) {
           return chunk;
         }

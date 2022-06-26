@@ -11,7 +11,6 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "@widgeteria/abstract": "^0.0.2",
     "@widgeteria/context": "^0.0.2",
     "@widgeteria/hierarchy-message-bus": "^0.0.2",
     "@widgeteria/promise": "^0.0.2"
