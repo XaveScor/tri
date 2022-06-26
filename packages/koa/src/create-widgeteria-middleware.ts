@@ -4,27 +4,32 @@ import { widgeteriaRender } from '@widgeteria/render';
 import { createWriter } from './createWriter';
 import { WidgeteriaReactRender } from '@widgeteria/react';
 import React from 'react';
-import { WidgetDeclaration } from '@widgeteria/widget/src/declaration';
+import { WidgeteriaRouter } from '@widgeteria/router';
 
 export function createWidgeteriaMiddleware<WidgetArgs, ViewArgs>(
-  widgetDeclaration: WidgetDeclaration<
+  router: WidgeteriaRouter<
     Koa.Context,
-    any,
     WidgetArgs,
     ViewArgs,
     React.ReactElement
   >,
   args: WidgetArgs,
 ) {
-  return async (baseContext: Koa.Context) => {
+  return async (baseContext: Koa.Context, next: Koa.Next) => {
+    const route = router.parse(baseContext.request.url);
+
+    if (!route) {
+      return next();
+    }
+
     const widgeteriaContext = createWidgeteriaContext({
       baseContext,
-      routeArgs: {},
+      routeArgs: route.routeArgs,
     });
 
     await widgeteriaRender<
       Koa.Context,
-      any,
+      typeof route.routeArgs,
       WidgetArgs,
       ViewArgs,
       React.ReactElement
@@ -32,7 +37,7 @@ export function createWidgeteriaMiddleware<WidgetArgs, ViewArgs>(
       context: widgeteriaContext,
       args,
       writer: createWriter(widgeteriaContext),
-      widgetDeclaration,
+      widgetDeclaration: route.widgetDeclaration,
       render: new WidgeteriaReactRender(),
     });
   };

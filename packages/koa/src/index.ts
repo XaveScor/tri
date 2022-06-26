@@ -1,1 +1,1 @@
-export { createWidgeteriaMiddleware } from './createWidgeteriaMiddleware';
+export { createWidgeteriaMiddleware } from './create-widgeteria-middleware';
