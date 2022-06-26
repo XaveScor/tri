@@ -3,13 +3,7 @@ import { WidgeteriaContext } from '@widgeteria/context';
 import { WidgeteriaController } from './controller';
 import { WidgeteriaView } from './view';
 
-type WidgetSchema<
-  BaseContext extends object,
-  RouteArgs,
-  WidgetArgs,
-  ViewArgs,
-  ViewResult,
-> = {
+type WidgetSchema<BaseContext, RouteArgs, WidgetArgs, ViewArgs, ViewResult> = {
   controller: WidgeteriaController<
     BaseContext,
     RouteArgs,
@@ -20,7 +14,7 @@ type WidgetSchema<
 };
 
 export class WidgetDeclaration<
-  BaseContext extends object,
+  BaseContext,
   RouteArgs,
   WidgetArgs,
   ViewArgs,

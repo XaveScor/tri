@@ -11,15 +11,11 @@ export type RenderSchema<ViewArgs> = {
   [slotArgs]?: { [name: string]: Widget<any, any, any, any> };
 };
 
-export type WidgeteriaController<
-  BaseContext extends object,
-  RouteArgs,
-  WidgetArgs,
-  ViewArgs,
-> = (
-  context: WidgeteriaContext<BaseContext, RouteArgs>,
-  widgetArgs: WidgeteriaWidgetArgs<WidgetArgs>,
-) => RenderSchema<ViewArgs>;
+export type WidgeteriaController<BaseContext, RouteArgs, WidgetArgs, ViewArgs> =
+  (
+    context: WidgeteriaContext<BaseContext, RouteArgs>,
+    widgetArgs: WidgeteriaWidgetArgs<WidgetArgs>,
+  ) => RenderSchema<ViewArgs>;
 
 export function createWidgeteriaController<
   BaseContext extends object,
