@@ -4,7 +4,7 @@ import { ChildWidget } from './fixtures/ChildWidget';
 describe('router', () => {
   it('base', () => {
     const router = new WidgeteriaRouter();
-    router.register('/post/:id/full', ChildWidget);
+    router.register('/post/:id/full', ChildWidget, { a: '1' });
 
     expect(router.parse('/post/xxx/full')).toMatchObject({
       routeArgs: { id: 'xxx' },
@@ -14,7 +14,7 @@ describe('router', () => {
 
   it('null if route not found', () => {
     const router = new WidgeteriaRouter();
-    router.register('/post/:id/full', ChildWidget);
+    router.register('/post/:id/full', ChildWidget, { a: '2' });
 
     expect(router.parse('/post/xxx/ful')).toBeNull();
   });

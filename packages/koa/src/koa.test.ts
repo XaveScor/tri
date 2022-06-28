@@ -8,16 +8,10 @@ import { WidgeteriaReactRender } from '@widgeteria/react';
 describe('koa', () => {
   it('base middleware', async () => {
     const app = new Koa();
-    const router = new WidgeteriaRouter<Koa.Context, { a: string }, any, any>();
-    router.register('/child', ChildWidget);
+    const router = new WidgeteriaRouter<Koa.Context, any, any>();
+    router.register('/child', ChildWidget, { a: '123' });
 
-    app.use(
-      createWidgeteriaMiddleware(
-        router,
-        { a: '123' },
-        new WidgeteriaReactRender(),
-      ),
-    );
+    app.use(createWidgeteriaMiddleware(router, new WidgeteriaReactRender()));
 
     const response = await Request(app.callback()).get('/child');
 
@@ -26,16 +20,10 @@ describe('koa', () => {
 
   it('skip widgeteria if route not found', async () => {
     const app = new Koa();
-    const router = new WidgeteriaRouter<Koa.Context, { a: string }, any, any>();
-    router.register('/child', ChildWidget);
+    const router = new WidgeteriaRouter<Koa.Context, any, any>();
+    router.register('/child', ChildWidget, { a: '123' });
 
-    app.use(
-      createWidgeteriaMiddleware(
-        router,
-        { a: '123' },
-        new WidgeteriaReactRender(),
-      ),
-    );
+    app.use(createWidgeteriaMiddleware(router, new WidgeteriaReactRender()));
 
     const str = 'widgeteria skipped';
     app.use(async (ctx) => {

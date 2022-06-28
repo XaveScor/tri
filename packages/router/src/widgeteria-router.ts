@@ -18,11 +18,19 @@ type WidgeteriaRoute<BaseContext, RouteArgs, WidgetArgs, ViewArgs, ViewResult> =
       ViewResult
     >;
     routeArgs: RouteArgs;
+    widgetArgs: WidgetArgs;
   };
 
-type CompiledRoute = {
+type CompiledRoute<WidgetArgs> = {
   regexp: RegExp;
-  widgetDeclaration: WidgeteriaWidgetDeclaration<any, any, any, any, any>;
+  widgetDeclaration: WidgeteriaWidgetDeclaration<
+    any,
+    any,
+    WidgetArgs,
+    any,
+    any
+  >;
+  args: WidgetArgs;
 };
 
 function buildRegexp(path: string) {
@@ -33,14 +41,14 @@ function buildRegexp(path: string) {
     }
 
     return acc + `(?<id>[a-zA-Z\\d]+)`;
-  }, ''); // ?
+  }, '');
   return new RegExp('^' + pattern + '$');
 }
 
-export class WidgeteriaRouter<BaseContext, WidgetArgs, ViewArgs, ViewResult> {
-  readonly #routeList: Array<CompiledRoute> = [];
+export class WidgeteriaRouter<BaseContext, ViewArgs, ViewResult> {
+  readonly #routeList: Array<CompiledRoute<any>> = [];
 
-  register<Path extends string>(
+  register<Path extends string, WidgetArgs>(
     path: Path,
     widgetDeclaration: WidgeteriaWidgetDeclaration<
       BaseContext,
@@ -49,14 +57,16 @@ export class WidgeteriaRouter<BaseContext, WidgetArgs, ViewArgs, ViewResult> {
       ViewArgs,
       ViewResult
     >,
+    args: WidgetArgs,
   ): void {
     this.#routeList.push({
       regexp: buildRegexp(path),
       widgetDeclaration,
+      args,
     });
   }
 
-  parse<RouteArgs>(
+  parse<RouteArgs, WidgetArgs>(
     url: string,
   ): WidgeteriaRoute<
     BaseContext,
@@ -74,6 +84,7 @@ export class WidgeteriaRouter<BaseContext, WidgetArgs, ViewArgs, ViewResult> {
       return {
         widgetDeclaration: compiledRoute.widgetDeclaration,
         routeArgs: res['groups'] as unknown as RouteArgs,
+        widgetArgs: compiledRoute.args,
       };
     }
 
