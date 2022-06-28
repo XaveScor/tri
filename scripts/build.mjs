@@ -1,4 +1,4 @@
-import fs from 'fs/promises';
+import fs from 'fs';
 import { rollup } from 'rollup';
 import path from 'path';
 import { clearPackageJSON } from 'clean-publish/core.js';
@@ -6,10 +6,10 @@ import { clearPackageJSON } from 'clean-publish/core.js';
 const distPath = process.argv[2];
 
 async function run() {
-  try {
-    await fs.rm(distPath, { recursive: true, force: true });
-  } catch {}
-  await fs.mkdir(distPath);
+  if (fs.existsSync(distPath)) {
+    fs.rmSync(distPath, { recursive: true, force: true });
+  }
+  fs.mkdirSync(distPath);
 
   const { default: rollupConfig } = await import(
     path.join(process.cwd(), './rollup.config.mjs')
@@ -26,10 +26,15 @@ async function run() {
   packageJson.main = 'bundle.js';
   const clearedPackageJson = clearPackageJSON(packageJson);
 
-  await fs.writeFile(
+  fs.writeFileSync(
     path.join(distPath, 'package.json'),
     JSON.stringify(clearedPackageJson, null, ' '),
   );
+
+  const readmePath = path.join(process.cwd(), 'readme.md');
+  if (fs.existsSync(readmePath)) {
+    fs.copyFileSync(readmePath, path.join(distPath, 'readme.md'));
+  }
 }
 
 run();
