@@ -1,6 +1,6 @@
 {
   "name": "@widgeteria/react",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "main": "src/index.ts",
   "scripts": {
@@ -20,6 +20,6 @@
     "@babel/preset-react": "^7.17.12",
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
-    "@widgeteria/render": "^0.0.3"
+    "@widgeteria/render": "^0.0.4"
   }
 }

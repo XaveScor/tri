@@ -1,6 +1,6 @@
 {
   "name": "@widgeteria/render",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "main": "src/index.ts",
   "scripts": {
@@ -17,6 +17,6 @@
     "@widgeteria/slot": "^0.0.2"
   },
   "devDependencies": {
-    "@widgeteria/widget": "^0.0.3"
+    "@widgeteria/widget": "^0.0.4"
   }
 }
