@@ -32,6 +32,7 @@
     "trace": true
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "website:start": "npm run start -w @widgeteria/website"
   }
 }

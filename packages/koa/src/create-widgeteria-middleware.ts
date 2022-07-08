@@ -4,9 +4,30 @@ import { widgeteriaRender } from '@widgeteria/render';
 import { createWriter } from './create-writer';
 import { WidgeteriaRouter } from '@widgeteria/router';
 import { WidgeteriaAbstractRender } from '@widgeteria/abstract';
+import { WidgeteriaWidgetDeclaration } from '@widgeteria/widget';
 
-export function createWidgeteriaMiddleware<WidgetArgs, ViewArgs, ViewResult>(
-  router: WidgeteriaRouter<Koa.Context, ViewArgs, ViewResult>,
+type _BaseWidgetDescription<ViewResult, WidgetArgs> = {
+  widgetDeclaration: WidgeteriaWidgetDeclaration<
+    Koa.Context,
+    unknown,
+    WidgetArgs,
+    unknown,
+    ViewResult
+  >;
+  args: WidgetArgs;
+};
+
+export type BaseWidgetDescription = _BaseWidgetDescription<unknown, unknown>;
+
+export function createWidgeteriaMiddleware<ViewResult>(
+  baseWidgeteriaDeclaration: WidgeteriaWidgetDeclaration<
+    Koa.Context,
+    unknown,
+    _BaseWidgetDescription<ViewResult, unknown>,
+    unknown,
+    ViewResult
+  >,
+  router: WidgeteriaRouter<Koa.Context, any, ViewResult>,
   render: WidgeteriaAbstractRender<ViewResult>,
 ) {
   return async <RouteArgs, WidgetArgs>(
@@ -26,9 +47,12 @@ export function createWidgeteriaMiddleware<WidgetArgs, ViewArgs, ViewResult>(
 
     await widgeteriaRender({
       context: widgeteriaContext,
-      args: route.widgetArgs,
+      args: {
+        widgetDeclaration: route.widgetDeclaration,
+        args: route.widgetArgs,
+      },
       writer: createWriter(widgeteriaContext),
-      widgetDeclaration: route.widgetDeclaration,
+      widgetDeclaration: baseWidgeteriaDeclaration,
       render,
     });
   };

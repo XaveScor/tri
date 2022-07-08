@@ -1,12 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`koa base middleware 1`] = `
-Object {
-  "data": Array [
-    49,
-    50,
-    51,
-  ],
-  "type": "Buffer",
-}
-`;
+exports[`koa base middleware 1`] = `"123"`;

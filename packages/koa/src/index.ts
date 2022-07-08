@@ -1,1 +1,4 @@
-export { createWidgeteriaMiddleware } from './create-widgeteria-middleware';
+export {
+  createWidgeteriaMiddleware,
+  type BaseWidgetDescription,
+} from './create-widgeteria-middleware';

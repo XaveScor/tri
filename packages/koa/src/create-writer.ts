@@ -7,7 +7,7 @@ import { renderCompletedFactory } from '@widgeteria/render';
 export function createWriter(context: WidgeteriaContext<Koa.Context, any>) {
   const stream = new Readable();
   context.getBaseContext().body = stream;
-
+  context.getBaseContext().type = 'html';
   context.getMessageBus().subscribe(context, renderCompletedFactory, () => {
     stream.push(null);
   });
