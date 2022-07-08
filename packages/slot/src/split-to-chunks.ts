@@ -25,7 +25,7 @@ function makeViewResult(data: string) {
 
 export function splitToChunks(viewResult: string): RenderChunks {
   return viewResult
-    .split(/\u00A9\u00A9\u00A9(.+)\u00A9\u00A9\u00A9/)
+    .split(/\uE000([^\uE000]+)\uE000/)
     .map((str, idx) =>
       idx % 2 === 1 ? makeSlotResult(str) : makeViewResult(str),
     );
