@@ -1,7 +1,7 @@
 import { WidgeteriaWidgetDeclaration } from '@widgeteria/widget';
 
 type ExtractRouteArgs<Path extends string> = string extends Path
-  ? Record<string, string>
+  ? unknown
   : Path extends `${infer Start}/:${infer Param}/${infer Rest}`
   ? { [k in Param | keyof ExtractRouteArgs<Rest>]: string }
   : Path extends `${infer Start}/:${infer Param}`
