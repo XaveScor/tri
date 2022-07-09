@@ -4,6 +4,7 @@ import { WidgeteriaController } from './controller';
 import { WidgeteriaView } from './view';
 
 type WidgetSchema<BaseContext, RouteArgs, WidgetArgs, ViewArgs, ViewResult> = {
+  id: string;
   controller: WidgeteriaController<
     BaseContext,
     RouteArgs,
@@ -49,6 +50,10 @@ export class WidgetDeclaration<
     const renderSchema = this.#schema.controller(childContext, widgetArgs);
     return new Widget(childContext, renderSchema, this.#schema.view);
   }
+
+  getId() {
+    return this.#schema.id;
+  }
 }
 
 export function declareWidgeteriaWidget<
@@ -67,4 +72,10 @@ export function declareWidgeteriaWidget<
   >,
 ): WidgetDeclaration<BaseContext, RouteArgs, WidgetArgs, ViewArgs, ViewResult> {
   return new WidgetDeclaration(schema);
+}
+
+export function isWidgetDeclaration(
+  x: unknown,
+): x is WidgetDeclaration<any, any, any, any, any> {
+  return x instanceof WidgetDeclaration;
 }

@@ -10,6 +10,7 @@ export const IndexPageWidget = declareWidgeteriaWidget<
   unknown,
   JSX.Element
 >({
+  id: 'index-page',
   controller,
   view,
 });
