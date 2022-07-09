@@ -7,7 +7,7 @@ export const viewArgs = Symbol('controller view args');
 export const slotArgs = Symbol('controller slots args');
 
 export type RenderSchema<ViewArgs> = {
-  [viewArgs]: Promisable<ViewArgs>;
+  [viewArgs]?: Promisable<ViewArgs>;
   [slotArgs]?: { [name: string]: Widget<any, any, any, any> };
 };
 

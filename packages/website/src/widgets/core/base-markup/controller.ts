@@ -1,7 +1,6 @@
 import {
   createWidgeteriaController,
   slotArgs,
-  viewArgs,
   WidgeteriaWidgetArgs,
 } from '@widgeteria/widget';
 import { WidgeteriaContext } from '@widgeteria/context';
@@ -15,7 +14,6 @@ export const controller = createWidgeteriaController(
     { args }: WidgeteriaWidgetArgs<BaseWidgetDescription>,
   ) => {
     return {
-      [viewArgs]: {},
       [slotArgs]: {
         navigation: NavigationWidget.create(context, { docsPath: 'docs' }),
         content: args.widgetDeclaration.create(context, args.args),

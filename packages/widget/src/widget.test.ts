@@ -36,4 +36,29 @@ describe('widget', () => {
 
     expect(await widget.render(writer)).toBe(renderResult);
   });
+
+  it('render without viewArgs', async () => {
+    const renderResult = '123';
+
+    const controller = createWidgeteriaController(() => ({}));
+    const widgetDeclaration = declareWidgeteriaWidget({
+      controller,
+      view: createWidgeteriaView(() => renderResult),
+    });
+
+    const context = createWidgeteriaContext({
+      baseContext: {},
+      routeArgs: {},
+    });
+
+    const widget = widgetDeclaration.create(context, undefined);
+
+    const writer = new (class implements WidgeteriaAbstractRender<string> {
+      render(str) {
+        return str;
+      }
+    })();
+
+    expect(await widget.render(writer)).toBe(renderResult);
+  });
 });
