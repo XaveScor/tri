@@ -3,6 +3,7 @@ import Koa from 'koa';
 import fs from 'node:fs';
 import * as path from 'path';
 import { MarkdownPageWidget } from './widgets/common/markdown-page';
+import { IndexPageWidget } from './widgets/common/index-page';
 
 export const router = new WidgeteriaRouter<Koa.Context, unknown, unknown>();
 
@@ -17,3 +18,5 @@ for (const [pageUrl, page] of Object.entries(structure)) {
     path: path.join('docs', page.path),
   });
 }
+
+router.register('/', IndexPageWidget, undefined);
