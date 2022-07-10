@@ -1,6 +1,6 @@
 {
   "name": "@widgeteria/router",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "main": "src/index.ts",
   "scripts": {
@@ -11,6 +11,6 @@
   "license": "ISC",
   "type": "module",
   "devDependencies": {
-    "@widgeteria/widget": "^0.0.4"
+    "@widgeteria/widget": "^0.0.5"
   }
 }
