@@ -1,9 +1,12 @@
 import { WidgeteriaContext } from '@widgeteria/context';
 import { RenderSchema, slotArgs, viewArgs } from './controller';
-import { WidgeteriaView } from './view';
 import { WidgeteriaAbstractRender } from '@widgeteria/abstract';
+import { WidgeteriaWidget as IWidget } from '../types';
+import { WidgeteriaView } from '../types/internal';
 
-export class Widget<BaseContext, RouteArgs, ViewArgs, ViewResult> {
+export class Widget<BaseContext, RouteArgs, ViewArgs, ViewResult>
+  implements IWidget<BaseContext, RouteArgs, ViewArgs, ViewResult>
+{
   readonly #context: WidgeteriaContext<BaseContext, RouteArgs>;
   readonly #renderSchema: RenderSchema<ViewArgs>;
   readonly #view: WidgeteriaView<ViewArgs, ViewResult>;

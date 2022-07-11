@@ -1,18 +1,11 @@
 import { Widget } from './widget';
 import { WidgeteriaContext } from '@widgeteria/context';
-import { WidgeteriaController } from './controller';
-import { WidgeteriaView } from './view';
-
-type WidgetSchema<BaseContext, RouteArgs, WidgetArgs, ViewArgs, ViewResult> = {
-  id: string;
-  controller: WidgeteriaController<
-    BaseContext,
-    RouteArgs,
-    WidgetArgs,
-    ViewArgs
-  >;
-  view: WidgeteriaView<ViewArgs, ViewResult>;
-};
+import { WidgeteriaWidgetDeclaration as IWidgeteriaWidgetDeclaration } from '../types';
+import {
+  IDeclareWidgeteriaWidget,
+  IIsWidgetDeclaration,
+  WidgetSchema,
+} from '../types/internal';
 
 export class WidgetDeclaration<
   BaseContext,
@@ -20,7 +13,15 @@ export class WidgetDeclaration<
   WidgetArgs,
   ViewArgs,
   ViewResult,
-> {
+> implements
+    IWidgeteriaWidgetDeclaration<
+      BaseContext,
+      RouteArgs,
+      WidgetArgs,
+      ViewArgs,
+      ViewResult
+    >
+{
   #schema: WidgetSchema<
     BaseContext,
     RouteArgs,
@@ -56,26 +57,11 @@ export class WidgetDeclaration<
   }
 }
 
-export function declareWidgeteriaWidget<
-  BaseContext extends object,
-  RouteArgs,
-  WidgetArgs,
-  ViewArgs,
-  ViewResult,
->(
-  schema: WidgetSchema<
-    BaseContext,
-    RouteArgs,
-    WidgetArgs,
-    ViewArgs,
-    ViewResult
-  >,
-): WidgetDeclaration<BaseContext, RouteArgs, WidgetArgs, ViewArgs, ViewResult> {
-  return new WidgetDeclaration(schema);
-}
+export const declareWidgeteriaWidget: IDeclareWidgeteriaWidget = (schema) =>
+  new WidgetDeclaration(schema);
 
-export function isWidgetDeclaration(
+export const isWidgetDeclaration: IIsWidgetDeclaration = (
   x: unknown,
-): x is WidgetDeclaration<any, any, any, any, any> {
+): x is WidgetDeclaration<any, any, any, any, any> => {
   return x instanceof WidgetDeclaration;
-}
+};
