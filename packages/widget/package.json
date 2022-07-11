@@ -8,6 +8,13 @@
     "test": "jest"
   },
   "types": "./types",
+  "exports": {
+    "browser": "./bundle.browser.js",
+    "node": {
+      "import": "./bundle.node.mjs",
+      "require": "./bundle.node.cjs"
+    }
+  },
   "author": "",
   "license": "ISC",
   "type": "module",

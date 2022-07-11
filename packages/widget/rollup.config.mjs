@@ -1,3 +1,16 @@
-import Config from '../../rollup.config.mjs';
+import { makeConfig } from '../../rollup.config.mjs';
 
-export default Config;
+export default [
+  makeConfig({
+    outputFilename: 'bundle.browser.js',
+    outputFormat: 'es',
+  }),
+  makeConfig({
+    outputFormat: 'module',
+    outputFilename: 'bundle.node.mjs',
+  }),
+  makeConfig({
+    outputFormat: 'cjs',
+    outputFilename: 'bundle.node.cjs',
+  }),
+];

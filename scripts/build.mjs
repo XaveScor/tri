@@ -14,8 +14,16 @@ async function run() {
   const { default: rollupConfig } = await import(
     path.join(process.cwd(), './rollup.config.mjs')
   );
-  const bundle = await rollup(rollupConfig);
-  await bundle.write(rollupConfig.output);
+  const rollupConfigs = Array.isArray(rollupConfig)
+    ? rollupConfig
+    : [rollupConfig];
+
+  await Promise.all(
+    rollupConfigs.map(async (config) => {
+      const bundle = await rollup(config);
+      await bundle.write(config.output);
+    }),
+  );
 
   const { default: packageJson } = await import(
     path.join(process.cwd(), './package.json'),
