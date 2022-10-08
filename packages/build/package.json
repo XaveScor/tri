@@ -9,8 +9,5 @@
   },
   "author": "",
   "license": "ISC",
-  "type": "module",
-  "dependencies": {
-    "@widgeteria/widget": "^0.0.5"
-  }
+  "type": "module"
 }

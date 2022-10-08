@@ -9,14 +9,5 @@
   },
   "author": "",
   "license": "ISC",
-  "type": "module",
-  "dependencies": {
-    "@widgeteria/abstract": "^0.0.3",
-    "@widgeteria/context": "^0.0.3",
-    "@widgeteria/hierarchy-message-bus": "^0.0.2",
-    "@widgeteria/slot": "^0.0.3"
-  },
-  "devDependencies": {
-    "@widgeteria/widget": "^0.0.5"
-  }
+  "type": "module"
 }
