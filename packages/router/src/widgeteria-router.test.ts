@@ -1,10 +1,11 @@
 import { WidgeteriaRouter } from './index';
 import { ChildWidget } from './fixtures/ChildWidget';
+import { fullPostRoute } from './fixtures/ChildWidget/route';
 
 describe('router', () => {
   it('base', () => {
-    const router = new WidgeteriaRouter();
-    router.register('/post/:id/full', ChildWidget, { a: '1' });
+    const router = new WidgeteriaRouter<{}, string>();
+    router.register(fullPostRoute, ChildWidget, { a: 'string' });
 
     expect(router.parse('/post/xxx/full')).toMatchObject({
       routeArgs: { id: 'xxx' },
@@ -13,8 +14,9 @@ describe('router', () => {
   });
 
   it('null if route not found', () => {
-    const router = new WidgeteriaRouter();
-    router.register('/post/:id/full', ChildWidget, { a: '2' });
+    const router = new WidgeteriaRouter<{}, string>();
+
+    router.register(fullPostRoute, ChildWidget, { a: 'string' });
 
     expect(router.parse('/post/xxx/ful')).toBeNull();
   });

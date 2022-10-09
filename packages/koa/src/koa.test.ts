@@ -5,15 +5,17 @@ import { ChildWidget } from './fixtures/ChildWidget';
 import { EmptyWidget } from './fixtures/EmptyWidget';
 import { WidgeteriaRouter } from '@widgeteria/router';
 import { WidgeteriaReactRender } from '@widgeteria/react';
+import { childRoute } from './fixtures/ChildWidget/route';
+import * as React from 'react';
 
 describe('koa', () => {
   it('base middleware', async () => {
     const app = new Koa();
-    const router = new WidgeteriaRouter<Koa.Context, unknown, unknown>();
-    router.register('/child', ChildWidget, { a: '123' });
+    const router = new WidgeteriaRouter<Koa.Context, React.ReactElement>();
+    router.register(childRoute, ChildWidget, { a: '123' });
 
     app.use(
-      createWidgeteriaMiddleware(
+      createWidgeteriaMiddleware<React.ReactElement>(
         EmptyWidget,
         router,
         new WidgeteriaReactRender(),
@@ -27,8 +29,8 @@ describe('koa', () => {
 
   it('content-type must to be a text/html', async () => {
     const app = new Koa();
-    const router = new WidgeteriaRouter<Koa.Context, unknown, unknown>();
-    router.register('/child', ChildWidget, { a: '123' });
+    const router = new WidgeteriaRouter<Koa.Context, React.ReactElement>();
+    router.register(childRoute, ChildWidget, { a: '123' });
 
     app.use(
       createWidgeteriaMiddleware(
@@ -45,8 +47,8 @@ describe('koa', () => {
 
   it('skip widgeteria if route not found', async () => {
     const app = new Koa();
-    const router = new WidgeteriaRouter<Koa.Context, unknown, unknown>();
-    router.register('/child', ChildWidget, { a: '123' });
+    const router = new WidgeteriaRouter<Koa.Context, React.ReactElement>();
+    router.register(childRoute, ChildWidget, { a: '123' });
 
     app.use(
       createWidgeteriaMiddleware(

@@ -1,10 +1,8 @@
 import { createWidgeteriaController, viewArgs } from '@widgeteria/widget';
-import { WidgetArgs } from './types';
-import { WidgeteriaContext } from '@widgeteria/context';
-import Koa from 'koa';
+import { Context, WidgetArgs } from './types';
 
 export const controller = createWidgeteriaController(
-  (ctx: WidgeteriaContext<Koa.Context, object>, args: WidgetArgs) => {
+  (ctx: Context, args: WidgetArgs) => {
     return {
       [viewArgs]: { b: args.args.a },
     };

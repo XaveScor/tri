@@ -1,28 +1,26 @@
 import { WidgeteriaWidgetDeclaration } from '@widgeteria/widget';
+import { WidgeteriaRoute } from './widgeteria-route';
 
-type ExtractRouteArgs<Path extends string> = string extends Path
-  ? unknown
-  : Path extends `${infer Start}/:${infer Param}/${infer Rest}`
-  ? { [k in Param | keyof ExtractRouteArgs<Rest>]: string }
-  : Path extends `${infer Start}/:${infer Param}`
-  ? { [k in Param]: string }
-  : {};
-
-type WidgeteriaRoute<BaseContext, RouteArgs, WidgetArgs, ViewArgs, ViewResult> =
-  {
-    widgetDeclaration: WidgeteriaWidgetDeclaration<
-      BaseContext,
-      RouteArgs,
-      WidgetArgs,
-      ViewArgs,
-      ViewResult
-    >;
-    routeArgs: RouteArgs;
-    widgetArgs: WidgetArgs;
-  };
+type WidgeteriaRouteCheckResult<
+  BaseContext,
+  RouteArgs,
+  WidgetArgs,
+  ViewArgs,
+  ViewResult,
+> = {
+  widgetDeclaration: WidgeteriaWidgetDeclaration<
+    BaseContext,
+    RouteArgs,
+    WidgetArgs,
+    ViewArgs,
+    ViewResult
+  >;
+  routeArgs: RouteArgs;
+  widgetArgs: WidgetArgs;
+};
 
 type CompiledRoute<WidgetArgs> = {
-  regexp: RegExp;
+  route: WidgeteriaRoute<any>;
   widgetDeclaration: WidgeteriaWidgetDeclaration<
     any,
     any,
@@ -30,61 +28,49 @@ type CompiledRoute<WidgetArgs> = {
     any,
     any
   >;
-  args: WidgetArgs;
+  widgetArgs: WidgetArgs;
 };
 
-function buildRegexp(path: string) {
-  const segments = path.split(/:([a-zA-Z\d]+)/);
-  const pattern = segments.reduce((acc, cur, idx) => {
-    if (idx % 2 === 0) {
-      return acc + cur;
-    }
+export class WidgeteriaRouter<BaseContext, ViewResult> {
+  readonly #routes: Array<CompiledRoute<any>> = [];
 
-    return acc + `(?<id>[a-zA-Z\\d]+)`;
-  }, '');
-  return new RegExp('^' + pattern + '$');
-}
-
-export class WidgeteriaRouter<BaseContext, ViewArgs, ViewResult> {
-  readonly #routeList: Array<CompiledRoute<any>> = [];
-
-  register<Path extends string, WidgetArgs>(
-    path: Path,
+  register<WidgetArgs>(
+    route: WidgeteriaRoute<any>,
     widgetDeclaration: WidgeteriaWidgetDeclaration<
       BaseContext,
-      ExtractRouteArgs<Path>,
+      unknown,
       WidgetArgs,
-      ViewArgs,
+      unknown,
       ViewResult
     >,
-    args: WidgetArgs,
-  ): void {
-    this.#routeList.push({
-      regexp: buildRegexp(path),
+    widgetArgs: WidgetArgs,
+  ) {
+    this.#routes.push({
+      route,
       widgetDeclaration,
-      args,
+      widgetArgs,
     });
   }
 
-  parse<RouteArgs, WidgetArgs>(
+  parse(
     url: string,
-  ): WidgeteriaRoute<
+  ): WidgeteriaRouteCheckResult<
     BaseContext,
-    RouteArgs,
-    WidgetArgs,
-    ViewArgs,
+    unknown,
+    unknown,
+    unknown,
     ViewResult
   > | null {
-    for (const compiledRoute of this.#routeList) {
-      const res = compiledRoute.regexp.exec(url);
-      if (!res) {
+    for (const route of this.#routes) {
+      const routeArgs = route.route.parse(url);
+      if (!routeArgs) {
         continue;
       }
 
       return {
-        widgetDeclaration: compiledRoute.widgetDeclaration,
-        routeArgs: res['groups'] as unknown as RouteArgs,
-        widgetArgs: compiledRoute.args,
+        widgetDeclaration: route.widgetDeclaration,
+        widgetArgs: route.widgetArgs,
+        routeArgs,
       };
     }
 

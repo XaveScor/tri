@@ -27,14 +27,11 @@ export function createWidgeteriaMiddleware<ViewResult>(
     unknown,
     ViewResult
   >,
-  router: WidgeteriaRouter<Koa.Context, any, ViewResult>,
+  router: WidgeteriaRouter<Koa.Context, ViewResult>,
   render: WidgeteriaAbstractRender<ViewResult>,
 ) {
-  return async <RouteArgs, WidgetArgs>(
-    baseContext: Koa.Context,
-    next: Koa.Next,
-  ) => {
-    const route = router.parse<RouteArgs, WidgetArgs>(baseContext.request.url);
+  return async (baseContext: Koa.Context, next: Koa.Next) => {
+    const route = router.parse(baseContext.request.url);
 
     if (!route) {
       return next();
