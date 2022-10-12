@@ -1,3 +1,13 @@
-import { ICreateWidgeteriaView } from '../types/internal';
+export type WidgeteriaViewArgs<ViewArgs> = {
+  args: ViewArgs;
+};
 
-export const createWidgeteriaView: ICreateWidgeteriaView = (view) => view;
+export type WidgeteriaView<ViewArgs, ViewResult> = (
+  args: WidgeteriaViewArgs<ViewArgs>,
+) => ViewResult;
+
+export function createWidgeteriaView<ViewArgs, ViewResult>(
+  view: WidgeteriaView<ViewArgs, ViewResult>,
+) {
+  return view;
+}

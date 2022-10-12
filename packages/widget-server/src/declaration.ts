@@ -1,8 +1,9 @@
-import { WidgeteriaWidget, WidgeteriaWidgetClass } from './widget';
+import { Widget } from './widget';
 import { WidgeteriaContext } from '@widgeteria/context';
-import { iocContainer, iocWidget } from '@widgeteria/di';
-import { WidgeteriaController } from './controller';
-import { WidgeteriaView } from './view';
+import { WidgeteriaWidgetDeclaration as IWidgeteriaWidgetDeclaration } from '../types';
+import { WidgeteriaController, WidgeteriaView } from '../types/internal';
+import { iocContainer } from '@widgeteria/di';
+import { IoCWidgetSymbol } from './const';
 
 export type WidgetSchema<
   BaseContext,
@@ -27,7 +28,15 @@ export class WidgetDeclaration<
   WidgetArgs,
   ViewArgs,
   ViewResult,
-> {
+> implements
+    IWidgeteriaWidgetDeclaration<
+      BaseContext,
+      RouteArgs,
+      WidgetArgs,
+      ViewArgs,
+      ViewResult
+    >
+{
   #schema: WidgetSchema<
     BaseContext,
     RouteArgs,
@@ -51,19 +60,12 @@ export class WidgetDeclaration<
   create(
     context: WidgeteriaContext<BaseContext, RouteArgs>,
     args: WidgetArgs,
-  ): WidgeteriaWidget<BaseContext, RouteArgs, ViewArgs, ViewResult> {
+  ): Widget<BaseContext, RouteArgs, ViewArgs, ViewResult> {
     const childContext = context.createChild();
-    const widgetClass =
-      iocContainer.get<
-        WidgeteriaWidgetClass<
-          BaseContext,
-          RouteArgs,
-          WidgetArgs,
-          ViewArgs,
-          ViewResult
-        >
-      >(iocWidget);
-    return new widgetClass(childContext, this.#schema);
+    const widget = iocContainer.get(IoCWidgetSymbol);
+    const widgetArgs = { args };
+    const renderSchema = this.#schema.controller(childContext, widgetArgs);
+    return new Widget(childContext, renderSchema, this.#schema.view);
   }
 
   getId() {

@@ -1,0 +1,14 @@
+{
+  "name": "@widgeteria/widget-server",
+  "version": "0.0.1",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "node ../../scripts/build.mjs ./dist",
+    "test": "jest"
+  },
+  "types": "./types",
+  "author": "",
+  "license": "ISC",
+  "type": "module"
+}
