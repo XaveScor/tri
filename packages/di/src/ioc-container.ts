@@ -14,4 +14,8 @@ export class IoCContainer {
 
     return null;
   }
+
+  reset() {
+    this.#singletons.clear();
+  }
 }
