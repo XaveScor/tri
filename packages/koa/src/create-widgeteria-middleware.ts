@@ -4,10 +4,10 @@ import { widgeteriaRender } from '@widgeteria/render';
 import { createWriter } from './create-writer';
 import { WidgeteriaRouter } from '@widgeteria/router';
 import { WidgeteriaAbstractRender } from '@widgeteria/abstract';
-import { WidgeteriaWidgetDeclaration } from '@widgeteria/widget';
+import { WidgetDeclaration } from '@widgeteria/widget';
 
 type _BaseWidgetDescription<ViewResult, WidgetArgs> = {
-  widgetDeclaration: WidgeteriaWidgetDeclaration<
+  widgetDeclaration: WidgetDeclaration<
     Koa.Context,
     unknown,
     WidgetArgs,
@@ -20,7 +20,7 @@ type _BaseWidgetDescription<ViewResult, WidgetArgs> = {
 export type BaseWidgetDescription = _BaseWidgetDescription<unknown, unknown>;
 
 export function createWidgeteriaMiddleware<ViewResult>(
-  baseWidgeteriaDeclaration: WidgeteriaWidgetDeclaration<
+  baseWidgeteriaDeclaration: WidgetDeclaration<
     Koa.Context,
     unknown,
     _BaseWidgetDescription<ViewResult, unknown>,
