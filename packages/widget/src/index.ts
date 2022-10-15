@@ -1,3 +1,14 @@
-export { declareWidgeteriaWidget, isWidgetDeclaration } from './declaration';
-export { createWidgeteriaController, viewArgs, slotArgs } from './controller';
-export { createWidgeteriaView } from './view';
+export {
+  declareWidgeteriaWidget,
+  isWidgetDeclaration,
+  type WidgetSchema,
+} from './declaration';
+export {
+  createWidgeteriaController,
+  viewArgs,
+  slotArgs,
+  type RenderSchema,
+  type WidgeteriaWidgetArgs,
+} from './controller';
+export { createWidgeteriaView, type WidgeteriaView } from './view';
+export { type WidgeteriaWidget } from './widget';

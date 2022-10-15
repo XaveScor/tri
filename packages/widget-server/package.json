@@ -7,7 +7,6 @@
     "build": "node ../../scripts/build.mjs ./dist",
     "test": "jest"
   },
-  "types": "./types",
   "author": "",
   "license": "ISC",
   "type": "module"

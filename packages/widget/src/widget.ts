@@ -5,13 +5,20 @@ import { WidgetSchema } from './declaration';
 export interface WidgeteriaWidget<
   BaseContext,
   RouteArgs,
+  WidgetArgs,
   ViewArgs,
   ViewResult,
 > {
   render(render: WidgeteriaAbstractRender<ViewResult>): Promise<string>;
   getSlotRenderSchema<_ViewArgs>(
     name: string,
-  ): WidgeteriaWidget<BaseContext, RouteArgs, _ViewArgs, ViewResult>;
+  ): WidgeteriaWidget<
+    BaseContext,
+    RouteArgs,
+    WidgetArgs,
+    _ViewArgs,
+    ViewResult
+  >;
 }
 
 export interface WidgeteriaWidgetClass<
@@ -23,6 +30,7 @@ export interface WidgeteriaWidgetClass<
 > extends Function {
   new (
     context: WidgeteriaContext<BaseContext, RouteArgs>,
+    args: WidgetArgs,
     schema: WidgetSchema<
       BaseContext,
       RouteArgs,
@@ -30,5 +38,5 @@ export interface WidgeteriaWidgetClass<
       ViewArgs,
       ViewResult
     >,
-  ): WidgeteriaWidget<BaseContext, RouteArgs, ViewArgs, ViewResult>;
+  ): WidgeteriaWidget<BaseContext, RouteArgs, WidgetArgs, ViewArgs, ViewResult>;
 }

@@ -1,29 +1,43 @@
 import { WidgeteriaContext } from '@widgeteria/context';
-import { RenderSchema, slotArgs, viewArgs } from './controller';
 import { WidgeteriaAbstractRender } from '@widgeteria/abstract';
-import { WidgeteriaWidget as IWidget } from '../types';
-import { WidgeteriaView } from '../types/internal';
+import {
+  WidgeteriaWidget,
+  WidgeteriaWidgetArgs,
+  WidgetSchema,
+  RenderSchema,
+  viewArgs,
+  slotArgs,
+} from '@widgeteria/widget';
 
-export class Widget<BaseContext, RouteArgs, ViewArgs, ViewResult>
-  implements IWidget<BaseContext, RouteArgs, ViewArgs, ViewResult>
+export class WidgeteriaServerWidget<
+  BaseContext,
+  RouteArgs,
+  WidgetArgs,
+  ViewArgs,
+  ViewResult,
+> implements
+    WidgeteriaWidget<BaseContext, RouteArgs, WidgetArgs, ViewArgs, ViewResult>
 {
-  readonly #context: WidgeteriaContext<BaseContext, RouteArgs>;
   readonly #renderSchema: RenderSchema<ViewArgs>;
-  readonly #view: WidgeteriaView<ViewArgs, ViewResult>;
 
   constructor(
-    context: WidgeteriaContext<BaseContext, RouteArgs>,
-    renderSchema: RenderSchema<ViewArgs>,
-    view: WidgeteriaView<ViewArgs, ViewResult>,
+    private readonly context: WidgeteriaContext<BaseContext, RouteArgs>,
+    args: WidgetArgs,
+    private readonly schema: WidgetSchema<
+      BaseContext,
+      RouteArgs,
+      WidgetArgs,
+      ViewArgs,
+      ViewResult
+    >,
   ) {
-    this.#context = context;
-    this.#renderSchema = renderSchema;
-    this.#view = view;
+    const widgetArgs: WidgeteriaWidgetArgs<WidgetArgs> = { args };
+    this.#renderSchema = schema.controller(this.context, widgetArgs);
   }
 
   async render(render: WidgeteriaAbstractRender<ViewResult>): Promise<string> {
     const args = await this.#renderSchema[viewArgs];
-    const viewResult = this.#view({ args });
+    const viewResult = this.schema.view({ args });
     return render.render(viewResult);
   }
 

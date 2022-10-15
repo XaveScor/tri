@@ -1,13 +1,20 @@
-import {
-  declareWidgeteriaWidget,
-  createWidgeteriaController,
-  viewArgs,
-} from './index';
 import { createWidgeteriaContext } from '@widgeteria/context';
-import { createWidgeteriaView } from './view';
 import { WidgeteriaAbstractRender } from '@widgeteria/abstract';
+import {
+  createWidgeteriaController,
+  createWidgeteriaView,
+  declareWidgeteriaWidget,
+  viewArgs,
+} from '@widgeteria/widget/src';
+import { iocContainer, iocWidget } from '@widgeteria/di';
+import { WidgeteriaServerWidget } from './index';
 
-describe('widget', () => {
+describe('server widget', () => {
+  beforeEach(() => {
+    iocContainer.reset();
+    iocContainer.addSingleton(iocWidget, WidgeteriaServerWidget);
+  });
+
   it('simple render', async () => {
     const renderResult = 'test view arg';
 
@@ -17,6 +24,7 @@ describe('widget', () => {
       };
     });
     const widgetDeclaration = declareWidgeteriaWidget({
+      id: 'id',
       controller,
       view: createWidgeteriaView(({ args }) => args.x),
     });
@@ -42,6 +50,7 @@ describe('widget', () => {
 
     const controller = createWidgeteriaController(() => ({}));
     const widgetDeclaration = declareWidgeteriaWidget({
+      id: 'id',
       controller,
       view: createWidgeteriaView(() => renderResult),
     });

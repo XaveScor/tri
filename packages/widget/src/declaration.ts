@@ -51,7 +51,13 @@ export class WidgetDeclaration<
   create(
     context: WidgeteriaContext<BaseContext, RouteArgs>,
     args: WidgetArgs,
-  ): WidgeteriaWidget<BaseContext, RouteArgs, ViewArgs, ViewResult> {
+  ): WidgeteriaWidget<
+    BaseContext,
+    RouteArgs,
+    WidgetArgs,
+    ViewArgs,
+    ViewResult
+  > {
     const childContext = context.createChild();
     const widgetClass =
       iocContainer.get<
@@ -63,7 +69,7 @@ export class WidgetDeclaration<
           ViewResult
         >
       >(iocWidget);
-    return new widgetClass(childContext, this.#schema);
+    return new widgetClass(childContext, args, this.#schema);
   }
 
   getId() {
