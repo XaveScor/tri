@@ -7,8 +7,15 @@ import { WidgeteriaRouter } from '@widgeteria/router';
 import { WidgeteriaReactRender } from '@widgeteria/react';
 import { childRoute } from './fixtures/ChildWidget/route';
 import * as React from 'react';
+import { iocContainer, iocWidget } from '@widgeteria/di';
+import { WidgeteriaServerWidget } from '@widgeteria/widget-server';
 
 describe('koa', () => {
+  beforeEach(() => {
+    iocContainer.reset();
+    iocContainer.addSingleton(iocWidget, WidgeteriaServerWidget);
+  });
+
   it('base middleware', async () => {
     const app = new Koa();
     const router = new WidgeteriaRouter<Koa.Context, React.ReactElement>();

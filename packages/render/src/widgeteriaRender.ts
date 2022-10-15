@@ -5,10 +5,7 @@ import {
 import { WidgeteriaContext } from '@widgeteria/context';
 import { splitToChunks } from '@widgeteria/slot';
 import { renderCompletedFactory } from './render-completed';
-import {
-  WidgeteriaWidget,
-  WidgeteriaWidgetDeclaration,
-} from '@widgeteria/widget';
+import { WidgeteriaWidget, WidgetDeclaration } from '@widgeteria/widget';
 
 export type RenderArgs<
   BaseContext extends object,
@@ -17,7 +14,7 @@ export type RenderArgs<
   ViewArgs,
   ViewResult,
 > = {
-  widgetDeclaration: WidgeteriaWidgetDeclaration<
+  widgetDeclaration: WidgetDeclaration<
     BaseContext,
     RouteArgs,
     WidgetArgs,
@@ -38,7 +35,13 @@ export async function widgeteriaRender<
   ViewResult,
 >(args: RenderArgs<BaseContext, RouteArgs, WidgetArgs, ViewArgs, ViewResult>) {
   async function _render(
-    widget: WidgeteriaWidget<BaseContext, RouteArgs, ViewArgs, ViewResult>,
+    widget: WidgeteriaWidget<
+      BaseContext,
+      RouteArgs,
+      WidgetArgs,
+      ViewArgs,
+      ViewResult
+    >,
   ) {
     const res = await widget.render(args.render);
     const chunks = splitToChunks(res);

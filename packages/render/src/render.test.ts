@@ -6,8 +6,15 @@ import {
 } from '@widgeteria/abstract';
 import { ParentWidget } from './fixtures/ParentWidget';
 import { createWidgeteriaContext } from '@widgeteria/context';
+import { iocContainer, iocWidget } from '@widgeteria/di';
+import { WidgeteriaServerWidget } from '@widgeteria/widget-server';
 
 describe('render', () => {
+  beforeEach(() => {
+    iocContainer.reset();
+    iocContainer.addSingleton(iocWidget, WidgeteriaServerWidget);
+  });
+
   it('base', async () => {
     let res = '';
     const context = createWidgeteriaContext({

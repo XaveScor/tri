@@ -1,6 +1,7 @@
 export {
   declareWidgeteriaWidget,
   isWidgetDeclaration,
+  type WidgetDeclaration,
   type WidgetSchema,
 } from './declaration';
 export {
