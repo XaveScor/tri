@@ -7,6 +7,7 @@ import {
   RenderSchema,
   viewArgs,
   slotArgs,
+  OnlyForClient,
 } from '@widgeteria/widget';
 
 export class WidgeteriaServerWidget<
@@ -50,5 +51,9 @@ export class WidgeteriaServerWidget<
     }
 
     return this.#renderSchema[slotArgs][name];
+  }
+
+  hydrate(element: HTMLElement) {
+    throw new OnlyForClient('hydrate');
   }
 }

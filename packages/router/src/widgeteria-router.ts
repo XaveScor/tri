@@ -1,4 +1,4 @@
-import { WidgeteriaWidgetDeclaration } from '@widgeteria/widget';
+import { WidgetDeclaration } from '@widgeteria/widget';
 import { WidgeteriaRoute } from './widgeteria-route';
 
 type WidgeteriaRouteCheckResult<
@@ -8,7 +8,7 @@ type WidgeteriaRouteCheckResult<
   ViewArgs,
   ViewResult,
 > = {
-  widgetDeclaration: WidgeteriaWidgetDeclaration<
+  widgetDeclaration: WidgetDeclaration<
     BaseContext,
     RouteArgs,
     WidgetArgs,
@@ -21,13 +21,7 @@ type WidgeteriaRouteCheckResult<
 
 type CompiledRoute<WidgetArgs> = {
   route: WidgeteriaRoute<any>;
-  widgetDeclaration: WidgeteriaWidgetDeclaration<
-    any,
-    any,
-    WidgetArgs,
-    any,
-    any
-  >;
+  widgetDeclaration: WidgetDeclaration<any, any, WidgetArgs, any, any>;
   widgetArgs: WidgetArgs;
 };
 
@@ -36,7 +30,7 @@ export class WidgeteriaRouter<BaseContext, ViewResult> {
 
   register<WidgetArgs>(
     route: WidgeteriaRoute<any>,
-    widgetDeclaration: WidgeteriaWidgetDeclaration<
+    widgetDeclaration: WidgetDeclaration<
       BaseContext,
       unknown,
       WidgetArgs,

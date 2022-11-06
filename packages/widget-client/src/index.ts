@@ -1,0 +1,1 @@
+export { WidgeteriaClientWidget } from './widget';

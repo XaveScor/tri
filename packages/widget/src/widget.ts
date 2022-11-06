@@ -19,6 +19,7 @@ export interface WidgeteriaWidget<
     _ViewArgs,
     ViewResult
   >;
+  hydrate(element: HTMLElement): void;
 }
 
 export interface WidgeteriaWidgetClass<

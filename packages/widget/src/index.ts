@@ -11,5 +11,11 @@ export {
   type RenderSchema,
   type WidgeteriaWidgetArgs,
 } from './controller';
-export { createWidgeteriaView, type WidgeteriaView } from './view';
+export {
+  createWidgeteriaView,
+  type WidgeteriaView,
+  type WidgeteriaViewArgs,
+} from './view';
 export { type WidgeteriaWidget } from './widget';
+export { WidgeteriaWindowKey } from './globals';
+export { OnlyForClient } from './errors';
